@@ -7,6 +7,7 @@
 ## Стек разработки
 
 Фронтенд: React + TypeScript
+
 Бэкенд: PostgreSQL + SQLAlchemy
 
 ## Итоговый результат
