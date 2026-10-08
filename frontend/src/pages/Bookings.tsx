@@ -1,3 +1,18 @@
-import { Link } from 'react-router';
+import type { Booking } from '../data/Types';
+import BookingCard from "../components/BookingCard";
+import { test_bookings } from "../data/MockData";
 
-export default function BookingsPage(){}
+type Prop = {
+    bookings: Array<Booking>;
+}
+
+export default function BookingsPage({bookings}: Prop){
+    return(
+        <div className="list_display">
+            <h1>My Bookings</h1>
+            {test_bookings.map((booking) => (
+                <BookingCard booking={booking} />
+            ))}
+        </div>
+    )
+}

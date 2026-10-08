@@ -1,12 +1,9 @@
 :root {
   --text: #ffffff;
-  --text-h: #f4f1de;
-  --bg: #798f53;
-  --border: #0f2e23;
-  --code-bg: #0f2e23;
+  --comment: #ced8bb;
+  --bg: #727e5d;
   --accent: #c88582;
   --accent-bg: #1b5b65;
-  --accent-border: #c88582;
   --social-bg: #6c816d;
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, 
@@ -33,7 +30,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
@@ -51,17 +48,17 @@
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
-}
+} */
 
 #root {
   width: 1126px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
 }
 
@@ -98,17 +95,211 @@ p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+a {
+  text-decoration: none;
+}
+a:visited {
+  color: inherit;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* custom classes */
+/* icons credits: https://www.flaticon.com/packs/education-1-6 */
+
+.app_header {
+  width: 100%;
+  height: 10em;
+  max-width: 100%;
+  background-color: var(--accent-bg);
+  border: solid 2pt var(--accent);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  padding: 0.5rem 0.5rem;
+  margin: 1em 0.5em;
 }
+
+.app_header div {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 0.5rem;
+}
+
+.app_header_logo {
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+  width: auto;
+}
+
+.app_header_actions {
+  width: 10em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app_header_actions_img {
+  width: 45%;
+  aspect-ratio: 1 1;
+  border: solid 1pt var(--accent);
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.app_header_actions_img img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.app_header_actions a {
+  width: 100%;
+  color: var(--text);
+  background-color: var(--accent);
+  margin: 0.5em 0.5em;
+  padding: 0.5em 0.5em;
+  border-radius: 1rem;
+}
+.app_header_actions a:hover {
+  color: var(--accent);
+  background-color: var(--text);
+}
+
+.navbar {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.navbar a {
+  color: var(--text);
+  background-color: var(--accent);
+  border: solid 1pt var(--text);
+  margin: 0.5em 0.5em;
+  padding: 0.5em 1.5em;
+  border-radius: 1rem;
+}
+
+.navbar a:hover {
+  /* filter: invert(1) brightness(1); */
+  color: var(--accent);
+  background-color: var(--text);
+  border: solid 1pt var(--accent);
+}
+
+.main_body {
+  width: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  border: solid 1pt var(--accent);
+  margin: 1em 0.5em;
+  padding: 0.5em 0.5em;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main_body h1 {
+  margin: 0.5em 0.5em;
+  margin-bottom: 1em;
+}
+
+.main_body img {
+  margin: 0.5em 0.5em;
+  border-radius: 1rem;
+}
+
+.main_body a {
+  margin: 1em 0.5em 2em;
+  padding: 1em 0em;
+}
+
+.main_body a:hover {
+  color: var(--accent-bg);
+}
+
+.card {
+  max-width: 100%;
+  color: var(--accent-bg);
+  background-color: var(--comment);
+  border-radius: 1rem;
+  margin: 0.5em 0.5em;
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list_display {
+  width: 55%;
+}
+
+.card_img {
+  width: 3em;
+  aspect-ratio: 1 1;
+  object-fit: cover;
+}
+
+.card_img img {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.details_button {
+  width: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-right: -1em;
+}
+
+.details_button button {
+  background-color: transparent;
+  border: none;
+}
+
+.details_button button img {
+  width: 3em;
+  aspect-ratio: 1 1;
+  object-fit: cover;
+}
+
+.auth_block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: space-between;
+  align-items: center;
+}
+
+.auth_block form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth_block form label{
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+ }

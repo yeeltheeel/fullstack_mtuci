@@ -1,4 +1,6 @@
 import type { Booking } from '../data/Types';
+import BookingIcon from '../assets/diploma.png';
+import DetailsIcon from '../assets/ellipsis.png';
 
 type Props = {
     booking: Booking;
@@ -6,15 +8,22 @@ type Props = {
 
 export default function BookingCard({booking}: Props){
    return(
-    <div>
-        <div>
-            <h1>{booking.book.title} by {booking.book.author} </h1>
-            <h2>at {booking.location.street}</h2> {/*location.getAddress()*/}
-            <h3>{booking.time_created.toISOString().split('T')[0]} - {booking.time_due.toISOString().split('T')[0]}</h3>
-            <h3>Status: {booking.status}</h3>
+    <div className="card">
+        <div className="card_img">
+            <img src={BookingIcon} />
         </div>
         <div>
-            <button>Delete booking</button>
+            <h2>{booking.book.title} by {booking.book.author} </h2>
+            <p>
+                {booking.time_created.toISOString().split('T')[0]} to 
+                {booking.time_due.toISOString().split('T')[0]}
+            </p>
+            <p>Status: {booking.status}</p>
+        </div>
+        <div className="details_button">   
+            <button>
+                <img src={DetailsIcon} alt="Delete booking" />
+            </button>
         </div>
     </div>
     ) 

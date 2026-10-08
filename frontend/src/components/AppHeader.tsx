@@ -1,32 +1,42 @@
 import { Link } from "react-router";
 import type{ User } from '../data/Types';
+import bookIcon from '../assets/book.png';
+import defaultAvatar from '../assets/glasses.png';
 
 type Prop = {
     user: User;
 }
 
 export default function AppHeader({user}: Prop){
+    const avatar_url = user.avatar ?? defaultAvatar; 
     return(<>
-     <div>
+     <div className="app_header">
         <div>
-            <img src="../assets/book.png" />
+            <img className="app_header_logo" src={bookIcon} alt="BookExchange logo" />
         </div>
         <div>
             <h1>BookExchange</h1>
         </div>
-        {/* @if (user.logged) {
-            <div>
-                <img src="{user.avatar}" />
-            </div>
-        } else {
-            <div>
-                <button>Login</button>
-                <button>Register</button>
-            </div>
-        } */}
+        {user.logged ? (
+                <div className="app_header_actions">
+                    <div className="app_header_actions_img">
+                        <img src={avatar_url} alt="User" />
+                    </div>
+                </div>
+            ):(
+                <div className="app_header_actions">
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Register</Link>
+                </div>
+            )}
      </div>
-     <div>
+     <div className="navbar">
         <Link to="/">Home</Link>
+        <Link to="/catalogue">Catalogue</Link>
+        <Link to="/locations">Locations</Link>
+        {user.logged &&
+            <Link to="/bookings">My Bookings</Link>
+        }
      </div>
     </>)
 }

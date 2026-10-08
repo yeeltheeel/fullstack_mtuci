@@ -1,4 +1,6 @@
 import type { Book } from '../data/Types';
+import BookIcon from '../assets/books.png';
+import DetailsIcon from '../assets/ellipsis.png';
 
 type Props = {
     book: Book;
@@ -6,14 +8,19 @@ type Props = {
 
 export default function BookCard({book}: Props){
    return(
-    <div>
-        <div>
-            <h1>{book.title}</h1>
-            <h2>{book.author}</h2>
-            <h3>{book.genre}</h3>
+    <div className="card">
+        <div className="card_img">
+            <img src={BookIcon} />
         </div>
         <div>
-            <button>Details</button>
+            <h2>{book.title}</h2>
+            <p>{book.author}</p>
+            <p>{book.genre}</p>
+        </div>
+        <div className="details_button">   
+            <button>
+                <img src={DetailsIcon} alt="Delete booking" />
+            </button>
         </div>
     </div>
     ) 
