@@ -21,23 +21,47 @@ export default function RegisterPage(){
             <form onSubmit={handleSubmit}>
                 <label>
                     Username
-                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                    <input 
+                        type="text" 
+                        placeholder="avid bookworm"
+                        value={username} 
+                        onChange={e => setUsername(e.target.value)} 
+                    />
                 </label>
                 <label>
                     Email
-                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input 
+                        type="email" 
+                        placeholder="book@exchange.org"
+                        value={email} 
+                        onChange={e => setEmail(e.target.value)} 
+                    />
                 </label>
                 <label>
                     Birthday
-                    <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} />
+                    <input 
+                        type="date" 
+                        value={birthday} 
+                        onChange={e => setBirthday(e.target.value)} 
+                    />
                 </label>
                 <label>
                     Password
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                    <input 
+                        type="password" 
+                        placeholder="****"
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)} 
+                    />
                 </label>
                 <label>
                     Confirm password
-                    <input type="password" value={confirm} onChange={e => setConfirm(e.target.value)} />
+                    <input 
+                        type="password" 
+                        placeholder="****"
+                        value={confirm} 
+                        onChange={e => setConfirm(e.target.value)} 
+                    />
                 </label>
                 <button type="submit">Create account</button>
             </form>

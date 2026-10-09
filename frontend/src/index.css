@@ -1,5 +1,5 @@
 :root {
-  --text: #ffffff;
+  --text: #fdfff8;
   --comment: #ced8bb;
   --bg: #727e5d;
   --accent: #c88582;
@@ -9,9 +9,9 @@
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, 
     rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --sans: "Caveat", system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: "Caveat", system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: "Caveat", ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
@@ -20,6 +20,7 @@
   background: var(--bg);
   background-image: url(./assets/books.jpg);
   background-repeat: round;
+  background-attachment: fixed;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -51,7 +52,7 @@
 } */
 
 #root {
-  width: 1126px;
+  width: 75%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -64,6 +65,15 @@
 
 body {
   margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
 }
 
 h1,
@@ -103,7 +113,13 @@ a:visited {
 }
 
 /* custom classes */
-/* icons credits: https://www.flaticon.com/packs/education-1-6 */
+/* icons credits: 
+https://www.flaticon.com/packs/education-1-6 
+https://www.flaticon.com/free-icons/bookworm
+https://www.flaticon.com/free-icons/dropdown
+https://www.flaticon.com/free-icons/succulent
+https://www.flaticon.com/free-icons/leaves
+*/
 
 .app_header {
   width: 100%;
@@ -145,17 +161,21 @@ a:visited {
 }
 
 .app_header_actions_img {
-  width: 45%;
+  width: 25%;
   aspect-ratio: 1 1;
-  border: solid 1pt var(--accent);
+  border: solid 2pt var(--accent);
   border-radius: 1rem;
   object-fit: cover;
+  background-color: var(--comment);
+}
+.app_header_actions_img:hover {
+  border: solid 2pt var(--text);
 }
 
 .app_header_actions_img img {
   width: 100%;
   height: auto;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   object-fit: cover;
 }
 
@@ -184,7 +204,7 @@ a:visited {
 .navbar a {
   color: var(--text);
   background-color: var(--accent);
-  border: solid 1pt var(--text);
+  border: solid 2pt var(--text);
   margin: 0.5em 0.5em;
   padding: 0.5em 1.5em;
   border-radius: 1rem;
@@ -194,14 +214,14 @@ a:visited {
   /* filter: invert(1) brightness(1); */
   color: var(--accent);
   background-color: var(--text);
-  border: solid 1pt var(--accent);
+  border: solid 2pt var(--accent);
 }
 
 .main_body {
   width: 100%;
   color: var(--text);
   background-color: var(--bg);
-  border: solid 1pt var(--accent);
+  border: solid 2pt var(--accent);
   margin: 1em 0.5em;
   padding: 0.5em 0.5em;
   border-radius: 1rem;
@@ -282,20 +302,23 @@ a:visited {
 }
 
 .list_display {
-  width: 55%;
+  width: 95%;
 }
 
 .card_img {
-  width: 3em;
-  aspect-ratio: 1 1;
+  width: 5em;
   object-fit: cover;
 }
 
 .card_img img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 1 1;
   border-radius: 0;
   object-fit: cover;
+}
+
+.card .card_status  {
+  color: var(--accent-bg);
 }
 
 .details_button {
@@ -348,7 +371,7 @@ a:visited {
 }
 
 .auth_block form label{
-  width: 25%;
+  width: 35%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -369,8 +392,8 @@ a:visited {
 
 .modal_window {
   width: 100%;
-  max-width: 520px;
-  max-height: 85vh;
+  max-width: 600px;
+  max-height: 90vh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -412,19 +435,31 @@ a:visited {
 }
 
 .modal_body ul {
-  margin: 0;
-  padding-left: 1em;
+  margin: -0.5em 0 1em 0;
+  list-style: none;
+  padding-left: 0;
 }
 
 .modal_body li {
-  padding: 0.25em 0;
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.modal_body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url(./assets/succulent.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1.25em;
+  height: 1.25em;
 }
 
-.modal_body h1 {
-  margin: 0.25em 0em;
-  letter-spacing: normal;
-}
-
+.modal_body li,
+.modal_body h1,
 .modal_body h3,
 .modal_body h4 {
   margin: 0.25em 0;
@@ -452,4 +487,26 @@ a:visited {
   color: var(--accent-bg);
   background-color: var(--comment);
   border: solid 1pt var(--accent-bg);
+}
+
+.user_profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.user_profile_img {
+  width: 6em;
+  object-fit: cover;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.user_profile_img img {
+  width: 100%;
+  aspect-ratio: 1 1;
+  border-radius: 1rem;
+  object-fit: cover;
 }

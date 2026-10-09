@@ -59,7 +59,7 @@ export const test_books: Book[] = [
     author: 'J.R.R. Tolkien',
     genre: 'Fantasy',
     description: 'Bilbo Baggins is swept into a quest to reclaim the Lonely Mountain from the dragon Smaug.',
-    available: 3,
+    available: [3, 2],
     locations: [test_locations[0], test_locations[2]],
   },
   {
@@ -68,7 +68,7 @@ export const test_books: Book[] = [
     author: 'J.R.R. Tolkien',
     genre: 'Fantasy',
     description: 'Frodo Baggins inherits the One Ring and sets out from the Shire with eight companions.',
-    available: 2,
+    available: [2, 1],
     locations: [test_locations[1], test_locations[4]],
   },
   {
@@ -77,7 +77,7 @@ export const test_books: Book[] = [
     author: 'Michael Crichton',
     genre: 'Science Fiction',
     description: 'A billionaire clones dinosaurs for a theme park, and the systems fail spectacularly.',
-    available: 1,
+    available: [1, 0],
     locations: [test_locations[0], test_locations[3]],
   },
   {
@@ -86,7 +86,7 @@ export const test_books: Book[] = [
     author: 'Arthur Conan Doyle',
     genre: 'Mystery',
     description: 'Sherlock Holmes investigates a legendary hound haunting the Baskerville family.',
-    available: 4,
+    available: [4, 2],
     locations: [test_locations[1], test_locations[4]],
   },
   {
@@ -95,7 +95,7 @@ export const test_books: Book[] = [
     author: 'Arthur Conan Doyle',
     genre: 'Mystery',
     description: 'The first case of Sherlock Holmes and Dr. Watson, tracing a murder to its American roots.',
-    available: 2,
+    available: [2],
     locations: [test_locations[2]],
   },
   {
@@ -104,7 +104,7 @@ export const test_books: Book[] = [
     author: 'Andy Weir',
     genre: 'Science Fiction',
     description: 'A lone astronaut wakes with amnesia aboard a ship sent to save a dying Earth.',
-    available: 5,
+    available: [5, 3, 1],
     locations: [test_locations[0], test_locations[1], test_locations[3]],
   },
   {
@@ -113,7 +113,7 @@ export const test_books: Book[] = [
     author: 'J.R.R. Tolkien',
     genre: 'Fantasy',
     description: 'The final battle for Middle-earth and the destruction of the One Ring.',
-    available: 1,
+    available: [1],
     locations: [test_locations[4]],
   },
   {
@@ -122,7 +122,7 @@ export const test_books: Book[] = [
     author: 'Michael Crichton',
     genre: 'Science Fiction',
     description: 'A second expedition to a hidden island where dinosaurs still roam.',
-    available: 3,
+    available: [3],
     locations: [test_locations[3]],
   },
 ];

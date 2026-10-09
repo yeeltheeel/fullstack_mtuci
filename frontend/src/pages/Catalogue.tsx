@@ -6,7 +6,7 @@ export default function CataloguePage(){
         <div className="list_display">
             <h1>Catalogue</h1>
             {test_books.map((book) => (
-                <BookCard book={book} />
+                <BookCard book={book} key={book.id}/>
             ))}
         </div>
     )

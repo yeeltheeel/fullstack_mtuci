@@ -13,7 +13,7 @@ export type Book = {
     author: string;
     genre: string;
     description: string;
-    available: number;
+    available: Array<number>;
     locations: Array<Location>;
 } 
 

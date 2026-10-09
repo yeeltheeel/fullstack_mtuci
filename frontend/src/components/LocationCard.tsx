@@ -2,7 +2,7 @@ import type { Location } from '../data/Types';
 import Modal from '../components/Modal';
 import LocationIcon from '../assets/university.png';
 import LocationDetails from "../components/LocationDetails";
-import DetailsIcon from '../assets/ellipsis.png';
+import DetailsIcon from '../assets/menu.png';
 
 type Props = {
     location: Location;

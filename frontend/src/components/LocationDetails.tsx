@@ -1,12 +1,10 @@
 import type { Location } from '../data/Types';
-import Modal from './Modal';
 
 type Props = {
     location: Location;
 }
 
 export default function LocationDetails({location}: Props){
-    const {close} = Modal();
     return(<>
     <h1> 
         {location.street}, {location.house}
@@ -15,5 +13,6 @@ export default function LocationDetails({location}: Props){
     <p>
         {location.description}
     </p>
+    <button>See available books</button>
     </>) 
 }

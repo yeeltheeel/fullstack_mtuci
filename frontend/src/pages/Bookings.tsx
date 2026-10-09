@@ -11,7 +11,7 @@ export default function BookingsPage({bookings}: Prop){
         <div className="list_display">
             <h1>My Bookings</h1>
             {test_bookings.map((booking) => (
-                <BookingCard booking={booking} />
+                <BookingCard booking={booking} key={booking.id}/>
             ))}
         </div>
     )

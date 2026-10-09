@@ -6,7 +6,7 @@ export default function LocationsPage(){
         <div className="list_display">
             <h1>Our Locations</h1>
             {test_locations.map((location) => (
-                <LocationCard location={location} />
+                <LocationCard location={location} key={location.id}/>
             ))}
         </div>
     )

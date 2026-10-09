@@ -2,7 +2,7 @@ import type { Book } from '../data/Types';
 import Modal from '../components/Modal';
 import BookDetails from "../components/BookDetails";
 import BookIcon from '../assets/books.png';
-import DetailsIcon from '../assets/ellipsis.png';
+import DetailsIcon from '../assets/menu.png';
 
 type Props = {
     book: Book;
