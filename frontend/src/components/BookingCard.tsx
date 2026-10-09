@@ -26,7 +26,7 @@ export default function BookingCard({booking}: Props){
         <div className="details_button">   
             <button onClick={() =>
                 modal.open({
-                  body: <BookingDetails book={booking} />,
+                  body: <BookingDetails booking={booking} />,
                 })}>
                 <img src={DetailsIcon} alt="Delete booking" />
             </button>

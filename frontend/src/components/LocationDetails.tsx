@@ -11,10 +11,9 @@ export default function LocationDetails({location}: Props){
     <h1> 
         {location.street}, {location.house}
     </h1>
-    <h4>{location.country}, {location.city}</h4>
+    <h4>{location.country}, {location.city}, {location.street}, {location.house}</h4>
     <p>
         {location.description}
     </p>
-    <button onClick={close}>Close</button>
     </>) 
 }

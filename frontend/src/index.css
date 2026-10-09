@@ -320,7 +320,6 @@ a:visited {
   border: none;
 }
 
-
 .details_button button img {
   width: 3em;
   aspect-ratio: 1 1;
@@ -356,53 +355,101 @@ a:visited {
   align-items: center;
  }
 
- .modal_window {
-  width: 100%;
- }
-
- .modal_backdrop {
-  background: var(--bg);
+.modal_backdrop {
   position: fixed;
   inset: 0;
+  background: rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 1em;
+  box-sizing: border-box;
 }
 
 .modal_window {
-  background: var(--bg);
-  color: var(--text);
-  border: solid 1px var(--accent);
-  border-radius: 8px;
+  width: 100%;
   max-width: 520px;
-  width: 90%;
   max-height: 85vh;
   overflow-y: auto;
-  padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  color: var(--text);
+  background-color: var(--bg);
+  border: solid 2pt var(--accent);
+  border-radius: 1rem;
+  padding: 1.25em 1.5em;
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
 }
 
 .modal_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  gap: 0.5em;
 }
 
-.modal_header h2 { margin: 0; }
+.modal_header h2 {
+  margin: 0;
+}
 
 .modal_close {
   background: transparent;
   border: none;
   color: var(--text);
-  font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
+  padding: 0 0.25em;
 }
 
 .modal_body {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 1em;
+  text-align: left;
+}
+
+.modal_body ul {
+  margin: 0;
+  padding-left: 1em;
+}
+
+.modal_body li {
+  padding: 0.25em 0;
+}
+
+.modal_body h1 {
+  margin: 0.25em 0em;
+  letter-spacing: normal;
+}
+
+.modal_body h3,
+.modal_body h4 {
+  margin: 0.25em 0;
+}
+
+.modal_body h4 {
+  color: var(--comment);
+}
+
+.modal_body p {
+  margin-bottom: 1em;
+}
+
+.modal_backdrop button {
+  color: var(--bg);
+  background-color: var(--text);
+  border: solid 1pt var(--comment);
+  margin: 0em 0.5em;
+  padding: 0.5em 2em;
+  border-radius: 1rem;
+}
+
+.modal_backdrop button:hover {
+  /* filter: invert(1) brightness(1); */
+  color: var(--accent-bg);
+  background-color: var(--comment);
+  border: solid 1pt var(--accent-bg);
 }
