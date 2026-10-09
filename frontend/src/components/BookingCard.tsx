@@ -1,5 +1,7 @@
 import type { Booking } from '../data/Types';
+import Modal from '../components/Modal';
 import BookingIcon from '../assets/diploma.png';
+import BookingDetails from "../components/BookingDetails";
 import DetailsIcon from '../assets/ellipsis.png';
 
 type Props = {
@@ -7,7 +9,8 @@ type Props = {
 }
 
 export default function BookingCard({booking}: Props){
-   return(
+    const modal = Modal();
+    return(
     <div className="card">
         <div className="card_img">
             <img src={BookingIcon} />
@@ -21,7 +24,10 @@ export default function BookingCard({booking}: Props){
             <p>Status: {booking.status}</p>
         </div>
         <div className="details_button">   
-            <button>
+            <button onClick={() =>
+                modal.open({
+                  body: <BookingDetails book={booking} />,
+                })}>
                 <img src={DetailsIcon} alt="Delete booking" />
             </button>
         </div>

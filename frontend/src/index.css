@@ -223,10 +223,41 @@ a:visited {
 .main_body a {
   margin: 1em 0.5em 2em;
   padding: 1em 0em;
+  color: var(--comment);
 }
 
 .main_body a:hover {
   color: var(--accent-bg);
+}
+
+.main_body button {
+  color: var(--bg);
+  background-color: var(--text);
+  border: solid 1pt var(--comment);
+  margin: 1em 0.5em;
+  padding: 0.5em 2em;
+  border-radius: 1rem;
+}
+
+.main_body button:hover {
+  /* filter: invert(1) brightness(1); */
+  color: var(--accent-bg);
+  background-color: var(--comment);
+  border: solid 1pt var(--accent-bg);
+}
+
+.main_body input {
+  margin: 0.25em 0.5em;
+  padding: 0.25em 0.5em;
+  color: var(--accent);
+  background-color: var(--text);
+  border: solid 1pt var(--comment);
+  border-radius: 1rem;
+}
+
+.main_body input:hover, .main_body input:focus {
+  color: var(--accent-bg);
+  border: solid 1pt var(--accent-bg);
 }
 
 .card {
@@ -240,6 +271,14 @@ a:visited {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.card p {
+  color: var(--accent);
+}
+
+.card h4 {
+  margin: 0.25em 1em;
 }
 
 .list_display {
@@ -272,12 +311,25 @@ a:visited {
 .details_button button {
   background-color: transparent;
   border: none;
+  padding: 0.5em 0em;
 }
+
+.details_button button:hover, 
+.details_button button:focus, 
+.details_button button:focus-visible {
+  border: none;
+}
+
 
 .details_button button img {
   width: 3em;
   aspect-ratio: 1 1;
   object-fit: cover;
+  opacity: 0.7;
+}
+
+.details_button button img:hover {
+  opacity: 0.9;
 }
 
 .auth_block {
@@ -303,3 +355,54 @@ a:visited {
   justify-content: space-between;
   align-items: center;
  }
+
+ .modal_window {
+  width: 100%;
+ }
+
+ .modal_backdrop {
+  background: var(--bg);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal_window {
+  background: var(--bg);
+  color: var(--text);
+  border: solid 1px var(--accent);
+  border-radius: 8px;
+  max-width: 520px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.modal_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.modal_header h2 { margin: 0; }
+
+.modal_close {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal_body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
