@@ -16,7 +16,7 @@ export default function BookDetails({book}: Props){
     <ul>
         {book.locations.map((location) => (
             <li key={location.id}>
-                {location.country}, {location.city}, {location.street}, {location.house}
+                {location.country}, {location.city}, {location.street}, {location.house} <span>({book.available} copies)</span>
             </li>
         ))}
     </ul>

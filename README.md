@@ -24,7 +24,7 @@
 
 ![Каталог](docs/screenshots/Screenshot%20(76).png)
 
-![Информация о книге](docs/screenshots/Screenshot%20(80).png)
+![Информация о книге](docs/screenshots/Screenshot%20(81).png)
 
 ![Локации](docs/screenshots/Screenshot%20(78).png)
 

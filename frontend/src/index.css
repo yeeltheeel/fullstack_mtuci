@@ -21,6 +21,7 @@
   background-image: url(./assets/books.jpg);
   background-repeat: round;
   background-attachment: fixed;
+  scrollbar-color: var(--comment) transparent;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -432,6 +433,10 @@ https://www.flaticon.com/free-icons/leaves
   flex-direction: column;
   gap: 1em;
   text-align: left;
+}
+
+.modal_body span {
+  color: var(--comment);
 }
 
 .modal_body ul {

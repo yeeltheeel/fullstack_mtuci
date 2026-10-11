@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Frontend: Run Vite + Debug in Chrome",
+      "name": "Frontend: run Vite + debug in Chrome",
       "type": "node-terminal",
       "request": "launch",
       "command": "npm run dev -- --host",
@@ -12,11 +12,10 @@
         "uriFormat": "%s",
         "action": "debugWithChrome"
       },
-      //"console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Frontend: Debug Chrome (Vite already running)",
+      "name": "Frontend: debug Chrome (Vite already running)",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:5173",
@@ -24,6 +23,49 @@
       "sourceMapPathOverrides": {
         "webpack:///./*": "${webRoot}/*"
       }
+    },
+    {
+      "name": "Backend: debug Python (uvicorn)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "app.main:app",
+        "--reload",
+        "--host", "127.0.0.1",
+        "--port", "8000"
+      ],
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/backend/.env",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "preLaunchTask": "backend: ensure requirements installed"
+    },
+    {
+      "name": "Backend: run without debugger",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["app.main:app", "--reload"],
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/backend/.env",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "preLaunchTask": "backend: ensure requirements installed"
     }
-  ]
+  ],
+  // "compounds": [
+  //   {
+  //     "name": "Full stack",
+  //     "configurations": [
+  //       "Backend: debug Python (uvicorn)",
+  //       "Frontend: run Vite + debug in Chrome"
+  //     ],
+  //     "stopAll": true,
+  //     "presentation": {
+  //       "group": "stack",
+  //       "order": 1
+  //     }
+  //   }
+  // ]
 }

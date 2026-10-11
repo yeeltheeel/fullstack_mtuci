@@ -1,3 +1,14 @@
-fastapi==0.115*
-uvicorm[standard]==0.32*
-sqlalchemy[asyncio]==2.0*
+fastapi==0.115.*
+uvicorn[standard]==0.32.*
+sqlalchemy[asyncio]==2.0.*
+asyncpg>=0.29.0
+alembic>=1.13.0
+pydantic[email]>=2.7
+pydantic-settings>=2.3
+python-dotenv>=1.0
+passlib[bcrypt]>=1.7
+python-jose[cryptography]>=3.3
+
+# py -m venv .venv
+# .venv/Scripts/Activate.ps1
+# pip install -r requirements.txt
