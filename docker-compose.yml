@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16
+    container_name: bookexchange-db
+    environment:
+      POSTGRES_USER: bookexchange
+      POSTGRES_PASSWORD: bookexchange
+      POSTGRES_DB: bookexchange
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U bookexchange" ]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - bookexchange-data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: bookexchange-backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://bookexchange:bookexchange@db:5432/bookexchange
+      SECRET_KEY: SomeKey!1
+      ACCESS_TOKEN_EXPIRE_MIN: "60"
+      DEBUG: "true"
+      # Tell debugpy to listen on 0.0.0.0 inside the container, port 5678
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "8000:8000"
+      - "5678:5678" # debugpy port
+    volumes:
+      - ./backend:/app # hot reload + debugger sees files
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      python -m debugpy
+        --listen 0.0.0.0:5678
+        --wait-for-client
+        -m uvicorn main:app
+        --host 0.0.0.0
+        --port 8000
+        --reload
+        --reload-dir /app
+    restart: unless-stopped
+
+volumes:
+  bookexchange-data:

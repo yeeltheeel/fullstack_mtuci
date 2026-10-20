@@ -1,20 +1,15 @@
-from datetime import date
-from pydantic import BaseModel, EmailStr, Field, AliasChoices
+from pydantic import BaseModel, ConfigDict, Field
 
 class UserOut(BaseModel):
-    id: int = Field(validation_alias=AliasChoices("user_id", "id"))
+    model_config = ConfigDict(from_attributes=True)
+    user_id: int
     username: str
-    birthday: date | None = None
-    email: EmailStr
-    avatar: str | None = None
-    logged: bool = False
-
-    model_config = {"from_attributes": True, "populate_by_name": True}
-
+    is_active: bool
 
 class UserCreate(BaseModel):
-    username: str
-    birthday: date | None = None
-    email: EmailStr
-    avatar: str | None = None
-    pass_: str = Field(min_length=6)
+    username: str = Field(min_length=3, max_length=100)
+    password: str = Field(min_length=6)
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"

@@ -1,71 +1,82 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Frontend: run Vite + debug in Chrome",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "npm run dev -- --host",
-      "cwd": "${workspaceFolder}/frontend",
-      "serverReadyAction": {
-        "pattern": "Local:\\s+(https?://\\S+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      },
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "name": "Frontend: debug Chrome (Vite already running)",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/frontend/src",
-      "sourceMapPathOverrides": {
-        "webpack:///./*": "${webRoot}/*"
-      }
-    },
-    {
-      "name": "Backend: debug Python (uvicorn)",
-      "type": "debugpy",
-      "request": "launch",
-      "module": "uvicorn",
-      "args": [
-        "app.main:app",
-        "--reload",
-        "--host", "127.0.0.1",
-        "--port", "8000"
-      ],
-      "cwd": "${workspaceFolder}/backend",
-      "envFile": "${workspaceFolder}/backend/.env",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "preLaunchTask": "backend: ensure requirements installed"
-    },
-    {
-      "name": "Backend: run without debugger",
-      "type": "debugpy",
-      "request": "launch",
-      "module": "uvicorn",
-      "args": ["app.main:app", "--reload"],
-      "cwd": "${workspaceFolder}/backend",
-      "envFile": "${workspaceFolder}/backend/.env",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "preLaunchTask": "backend: ensure requirements installed"
-    }
-  ],
-  // "compounds": [
-  //   {
-  //     "name": "Full stack",
-  //     "configurations": [
-  //       "Backend: debug Python (uvicorn)",
-  //       "Frontend: run Vite + debug in Chrome"
-  //     ],
-  //     "stopAll": true,
-  //     "presentation": {
-  //       "group": "stack",
-  //       "order": 1
-  //     }
-  //   }
-  // ]
+	"version": "0.2.0",
+	"configurations": [
+		// ─── Frontend (runs on host, HMR + debugger) ─────────────────
+		{
+			"name": "Frontend: run Vite + debug in Chrome",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "npm run dev -- --host",
+			"cwd": "${workspaceFolder}/frontend",
+			"serverReadyAction": {
+				"pattern": "Local:\\s+(https?://\\S+)",
+				"uriFormat": "%s",
+				"action": "debugWithChrome"
+			},
+			"internalConsoleOptions": "neverOpen"
+		},
+		{
+			"name": "Frontend: debug Chrome (Vite already running)",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://localhost:5173",
+			"webRoot": "${workspaceFolder}/frontend/src",
+			"sourceMapPathOverrides": {
+				"webpack:///./*": "${webRoot}/*"
+			}
+		},
+		// ─── Backend in Docker, debugger attached ────────────────────
+		{
+			"name": "Backend: Docker (db + app) [debug]",
+			"type": "debugpy",
+			"request": "attach",
+			"connect": {
+				"host": "127.0.0.1",
+				"port": 5678
+			},
+			"pathMappings": [
+				{
+					"localRoot": "${workspaceFolder}/backend",
+					"remoteRoot": "/app"
+				}
+			],
+			"justMyCode": false,
+			"preLaunchTask": "docker: up backend stack",
+			"postDebugTask": "docker: down backend stack"
+		},
+		// ─── Backend on host, DB in Docker (fast iteration, no attach) ─
+		{
+			"name": "Backend: local uvicorn (db in Docker) [run only]",
+			"type": "debugpy",
+			"request": "launch",
+			"module": "uvicorn",
+			"args": [
+				"main:app",
+				"--reload",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8000"
+			],
+			"cwd": "${workspaceFolder}/backend",
+			"envFile": "${workspaceFolder}/backend/.env",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"preLaunchTask": "docker: up db only"
+		}
+	],
+	"compounds": [
+		{
+			"name": "Full stack (backend in Docker + frontend on host)",
+			"configurations": [
+				"Backend: Docker (db + app) [debug]",
+				"Frontend: run Vite + debug in Chrome"
+			],
+			"stopAll": true,
+			"presentation": {
+				"group": "stack",
+				"order": 1
+			}
+		}
+	]
 }

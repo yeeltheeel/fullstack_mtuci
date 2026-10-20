@@ -1,0 +1,168 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		// ─── Docker Desktop lifecycle ─────────────────────────────────
+		{
+			"label": "docker: start Docker Desktop",
+			"type": "shell",
+			"command": "docker desktop start -d",
+			"windows": {
+				"command": "docker desktop start -d",
+				"options": {
+					"shell": {
+						"executable": "powershell.exe"
+					}
+				}
+			},
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "docker: stop Docker Desktop",
+			"type": "shell",
+			"command": "docker desktop stop",
+			"windows": {
+				"command": "docker desktop stop",
+				"options": {
+					"shell": {
+						"executable": "powershell.exe"
+					}
+				}
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "docker: ensure daemon running",
+			"type": "shell",
+			"command": "for ($i=0; $i -lt 60; $i++) { docker info *> $null; if ($LASTEXITCODE -eq 0) { Write-Host 'Docker is ready'; exit 0 }; Start-Sleep -Seconds 1 }; Write-Error 'Docker daemon did not become ready within 60 seconds'; exit 1",
+			"windows": {
+				"command": "for ($i=0; $i -lt 60; $i++) { docker info *> $null; if ($LASTEXITCODE -eq 0) { Write-Host 'Docker is ready'; exit 0 }; Start-Sleep -Seconds 1 }; Write-Error 'Docker daemon did not become ready within 60 seconds'; exit 1",
+				"options": {
+					"shell": {
+						"executable": "powershell.exe"
+					}
+				}
+			},
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		// ─── Backend stack (db + backend) ─────────────────────────────
+		{
+			"label": "docker: up db only",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml up -d db",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"dependsOn": [
+				"docker: ensure daemon running"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "docker: up backend stack",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml up --build -d",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"dependsOn": [
+				"docker: ensure daemon running"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "docker: down backend stack",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml down",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "docker: nuke backend stack (wipe DB)",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml down -v",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		// ─── Full stack (db + backend + frontend) ─────────────────────
+		{
+			"label": "docker: up full stack",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml -f docker-compose.yml up --build -d",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"dependsOn": [
+				"docker: ensure daemon running"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "docker: down full stack",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml -f docker-compose.yml down",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		// ─── Utility ──────────────────────────────────────────────────
+		{
+			"label": "docker: ps",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml -f docker-compose.yml ps",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "docker: logs backend",
+			"type": "shell",
+			"command": "docker compose -f docker-compose.yml logs -f backend",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		}
+	]
+}
