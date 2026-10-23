@@ -28,7 +28,7 @@ export default function BookingCard({booking}: Props){
                 modal.open({
                   body: <BookingDetails booking={booking} />,
                 })}>
-                <img src={DetailsIcon} alt="Delete booking" />
+                <img src={DetailsIcon} alt="Show details" />
             </button>
         </div>
     </div>

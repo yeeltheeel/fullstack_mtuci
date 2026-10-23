@@ -1,7 +1,6 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-		// ─── Frontend (runs on host, HMR + debugger) ─────────────────
 		{
 			"name": "Frontend: run Vite + debug in Chrome",
 			"type": "node-terminal",
@@ -25,7 +24,6 @@
 				"webpack:///./*": "${webRoot}/*"
 			}
 		},
-		// ─── Backend in Docker, debugger attached ────────────────────
 		{
 			"name": "Backend: Docker (db + app) [debug]",
 			"type": "debugpy",
@@ -44,7 +42,6 @@
 			"preLaunchTask": "docker: up backend stack",
 			"postDebugTask": "docker: down backend stack"
 		},
-		// ─── Backend on host, DB in Docker (fast iteration, no attach) ─
 		{
 			"name": "Backend: local uvicorn (db in Docker) [run only]",
 			"type": "debugpy",
