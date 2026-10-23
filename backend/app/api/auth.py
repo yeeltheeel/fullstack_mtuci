@@ -11,19 +11,16 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def register(payload: UserCreate, db: AsyncSession = Depends(get_db)):
-    existing = await user_crud.get_by_username(db, payload.username)
-    if existing:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Username already taken")
-    return await user_crud.create(db, payload.username, payload.password)
+    if await user_crud.get_by_email(db, payload.email):
+        raise HTTPException(status.HTTP_409_CONFLICT, "email already registered")
+    return await user_crud.create(db, payload.model_dump())
 
 @router.post("/login", response_model=Token)
 async def login(
     form: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db),
 ):
-    # OAuth2 form uses `username` field; we map it to our username column
-    user = await user_crud.get_by_username(db, form.username)
-    if user is None or not verify_password(form.password, user.hashed_password):
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid credentials")
-    token = create_access_token(subject=str(user.user_id))
-    return Token(access_token=token)
+    user = await user_crud.get_by_email(db, form.username)
+    if user is None or not verify_password(form.password, user.password_hash):
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "invalid credentials")
+    return Token(access_token=create_access_token(subject=str(user.user_id)))

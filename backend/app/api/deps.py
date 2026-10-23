@@ -14,18 +14,18 @@ async def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: AsyncSession = Depends(get_db),
 ) -> User:
-    credentials_error = HTTPException(
+    cred_error = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
+        detail="could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
         payload = decode_access_token(token)
         user_id = int(payload.get("sub"))
     except (PyJWTError, TypeError, ValueError):
-        raise credentials_error
+        raise cred_error
 
     user = await user_crud.get_by_id(db, user_id)
-    if user is None or not user.is_active:
-        raise credentials_error
+    if user is None:
+        raise cred_error
     return user
