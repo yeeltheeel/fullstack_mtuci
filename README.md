@@ -33,3 +33,12 @@
 ![Бронирование](docs/screenshots/Screenshot%20(79).png)
 
 ![Информация о бронировании](docs/screenshots/Screenshot%20(83).png)
+
+<!-- to-do:
+    backend return must match frontend
+    frontend structure
+    edit profile page
+    filtered books page
+    selectable locations for booking (if came from filtered then select it)
+    docker-compose for all
+-->

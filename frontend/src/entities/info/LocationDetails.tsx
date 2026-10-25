@@ -1,4 +1,4 @@
-import type { Location } from '../data/Types';
+import type { Location } from '../../data/Types';
 
 type Props = {
     location: Location;

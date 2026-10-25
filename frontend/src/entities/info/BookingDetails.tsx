@@ -1,4 +1,4 @@
-import type { Booking } from '../data/Types';
+import type { Booking } from '../../data/Types';
 
 type Props = {
     booking: Booking;
@@ -16,6 +16,6 @@ export default function BookDetails({booking}: Props){
     <p>
         {booking.book.description}
     </p>
-    <button>Delete booking</button>
+    <button type="button">Cancel booking</button>
     </>) 
 }

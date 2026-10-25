@@ -1,8 +1,8 @@
-import type { Booking } from '../data/Types';
-import Modal from '../components/Modal';
-import BookingIcon from '../assets/diploma.png';
-import BookingDetails from "../components/BookingDetails";
-import DetailsIcon from '../assets/menu.png';
+import type { Booking } from '../../data/Types';
+import Modal from '../ui/Modal';
+import BookingIcon from '../../shared/icons/diploma.png';
+import DetailsIcon from '../../shared/icons/menu.png';
+import BookingDetails from "../info/BookingDetails";
 
 type Props = {
     booking: Booking;
@@ -17,7 +17,7 @@ export default function BookingCard({booking}: Props){
         </div>
         <div>
             <h2>{booking.book.title}</h2>
-            <h4>by {booking.book.author} </h4>
+            <h4>by {booking.book.author}</h4>
             <p>
                 {booking.time_created.toISOString().split('T')[0]} to {booking.time_due.toISOString().split('T')[0]}
             </p>

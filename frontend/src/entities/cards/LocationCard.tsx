@@ -1,8 +1,8 @@
-import type { Location } from '../data/Types';
-import Modal from '../components/Modal';
-import LocationIcon from '../assets/university.png';
-import LocationDetails from "../components/LocationDetails";
-import DetailsIcon from '../assets/menu.png';
+import type { Location } from '../../data/Types';
+import Modal from '../ui/Modal';
+import LocationIcon from '../../shared/icons/university.png';
+import DetailsIcon from '../../shared/icons/menu.png';
+import LocationDetails from "../info/LocationDetails";
 
 type Props = {
 	location: Location;
@@ -15,7 +15,10 @@ export default function LocationCard({ location }: Props) {
 			<div className="card_img">
 				<img src={LocationIcon} />
 			</div>
-			<h2>{location.country}, {location.city}, {location.street}, {location.house}</h2>
+			<div>
+				<h2>{location.street}, {location.house}</h2>
+				<h4>{location.country}, {location.city}</h4>
+			</div>
 			<div className="details_button">
 				<button onClick={() =>
 					modal.open({

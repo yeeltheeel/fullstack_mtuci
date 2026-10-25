@@ -1,8 +1,8 @@
-import type { Book } from '../data/Types';
-import Modal from '../components/Modal';
-import BookDetails from "../components/BookDetails";
-import BookIcon from '../assets/books.png';
-import DetailsIcon from '../assets/menu.png';
+import type { Book } from '../../data/Types';
+import Modal from '../ui/Modal';
+import BookIcon from '../../shared/icons/books.png';
+import DetailsIcon from '../../shared/icons/menu.png';
+import BookDetails from "../info/BookDetails";
 
 type Props = {
 	book: Book;
@@ -17,7 +17,7 @@ export default function BookCard({ book }: Props) {
 			</div>
 			<div>
 				<h2>{book.title}</h2>
-				<h4> by {book.author}</h4>
+				<h4>by {book.author}</h4>
 				<p>{book.genre}</p>
 			</div>
 			<div className="details_button">

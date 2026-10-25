@@ -9,7 +9,7 @@ export default function RegisterPage() {
 	const [password, setPassword] = useState('');
 	const [confirm, setConfirm] = useState('');
 
-	function handleSubmit(e: React.SubmitEvent) {
+	function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		window.alert(`register: ${username}, ${email}, ${birthday}, ${password}, ${confirm}`)
 		navigate('/');

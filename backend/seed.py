@@ -21,6 +21,7 @@ def get_data():
 			birthday=date(2002, 1, 3)
 		)
 	]
+
 	books = [
 		Book( 
 			title="The Hobbit", 
@@ -71,6 +72,7 @@ def get_data():
 			descr="Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the 'spice' melange, a drug capable of extending life and enhancing consciousness. Coveted across the known universe, melange is a prize worth killing for.... When House Atreides is betrayed, the destruction of Paul's family will set the boy on a journey toward a destiny greater than he could ever have imagined." 
 		)
 	]
+
 	locations = [
 		Location(
 			country="Russia", 
@@ -108,6 +110,7 @@ def get_data():
 			descr="Compact pickup point near the metro, open daily 11:00-22:00."
 		)
 	]
+
 	stocks = []
 	for book in books:
 		for location in locations:
@@ -119,6 +122,7 @@ def get_data():
 					reserved=0
 				)
 			)
+
 	now = datetime(2026, 10, 20, 12, 0)
 	bookings = [
 		# ongoing
@@ -190,6 +194,7 @@ def get_data():
 			stat="pending",
 		),
 	]
+	
 	return users, books, locations, stocks, bookings
 
 async def seed() -> None:

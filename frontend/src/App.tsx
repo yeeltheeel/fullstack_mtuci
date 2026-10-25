@@ -1,15 +1,17 @@
-// import './App.css'
-import { Outlet } from 'react-router';
-import AppHeader from './components/AppHeader'
-
-import { test_user } from './data/MockData';
+import { Outlet, useLoaderData } from 'react-router';
+import { ModalProvider } from './entities/ui/Modal';
+import AppHeader from './entities/ui/AppHeader'
+import type { User } from './data/Types';
 
 function App() {
+  const { user } = useLoaderData() as { user: User };
   return (<>
-    <AppHeader user={test_user} />
-    <div className="main_body">
-      <Outlet  />
-    </div>
+	<ModalProvider>
+		<AppHeader user={user}/>
+		<div className="main_body">
+			<Outlet  />
+		</div>
+	</ModalProvider>
   </>)
 }
 
