@@ -2,9 +2,16 @@ import type { Booking } from '../../data/Types';
 
 type Props = {
     booking: Booking;
+    onClose: () => void;
 }
 
-export default function BookDetails({booking}: Props){
+export default function BookDetails({booking, onClose}: Props){
+    function CancelBooking(){
+        window.alert(`${booking.id}`)
+        // remove_booking(booking);
+        onClose();
+    }
+
     return(<>
     <h1>{booking.book.title}</h1>
     <h2>by {booking.book.author}</h2>
@@ -16,6 +23,6 @@ export default function BookDetails({booking}: Props){
     <p>
         {booking.book.description}
     </p>
-    <button type="button">Cancel booking</button>
+    <button type="button" onClick={CancelBooking}>Cancel booking</button>
     </>) 
 }

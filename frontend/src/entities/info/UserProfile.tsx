@@ -1,13 +1,26 @@
 import type { User } from '../../data/Types';
 import DefaultAvatar from '../../shared/icons/bookworm.png';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 type Prop = {
-    user: User 
+    user: User;
+	onClose: () => void;
 }
 
-export default function UserProfile({user}: Prop){
+export default function UserProfile({user, onClose}: Prop){
+	const navigate = useNavigate();
 	const avatar_url = user.avatar ?? DefaultAvatar; 
+
+	function OpenEditProfile(){
+		onClose();
+		navigate('/edit');
+	}
+
+	function OpenChangePass(){
+		onClose();
+		navigate('/password');
+	}
+
 	return(<>
 	<h1>User profile</h1>
 	<div className="user_profile">
@@ -30,8 +43,8 @@ export default function UserProfile({user}: Prop){
 		</div>
 	</div>
 	
-	<button className="user_profile_btn">Edit profile</button> 
-	<button className="user_profile_btn">Log out</button>
+	<button className="user_profile_btn" type="button" onClick={OpenEditProfile}>Edit profile</button> 
+	<button className="user_profile_btn" type="button" onClick={OpenChangePass}>Log out</button>
 	<button>Delete account</button>
 	</>) 
 }

@@ -4,9 +4,10 @@ import type { Book, User } from '../../data/Types';
 
 type Props = {
 	book: Book;
+	onClose: () => void;
 }
 
-export default function BookDetails({book}: Props){
+export default function BookDetails({book, onClose}: Props){
 	const { user } = useRouteLoaderData("root") as { user: User | null };
 	const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
 	const selectedLocation = book.locations.find((l) => l.id === selectedLocationId) ?? null;
@@ -25,6 +26,7 @@ export default function BookDetails({book}: Props){
 			return;
 		}
 		window.alert(`Booked ${book.title} at ${selectedLocation.city}`);
+		onClose();
 	} 
 
 	return(<>

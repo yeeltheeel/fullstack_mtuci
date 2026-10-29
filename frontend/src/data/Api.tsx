@@ -11,9 +11,13 @@ export async function load_remote_user(): Promise<User | null> {
 	return user;
 }
 
-export async function load_remote_books(): Promise<Book[]> {
-	const books = test_books;
-	return books;
+export async function load_remote_books(locationId: string | null = null): Promise<Book[]> {
+	const books = locationId
+		? test_books.filter((b) =>
+			b.locations.some((loc) => String(loc.id) === locationId)
+		)
+		: test_books;
+  return books;
 }
 
 export async function load_remote_locations(): Promise<Location[]> {

@@ -24,7 +24,7 @@ export default function BookCard({ book }: Props) {
 				<button onClick={() =>
 					modal.open({
 						title: book.title,
-						body: <BookDetails book={book} />,
+						body: <BookDetails book={book} onClose={() => modal.close()}/>,
 					})}>
 					<img src={DetailsIcon} alt="Show details" />
 				</button>

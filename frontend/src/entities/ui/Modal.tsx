@@ -19,19 +19,19 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const close = useCallback(() => setContent(null), []);
 
   return (
-    <ModalContext.Provider value={{ open, close }}>
-      {children}
-      {content &&
-        createPortal(
-          <div className="modal_backdrop" onClick={close}>
-            <div className="modal_window" onClick={e => e.stopPropagation()}>
-              <div className="modal_body">{content.body}</div>
-              <button onClick={close}>Close</button>
-            </div>
-          </div>,
-          document.body
-        )}
-    </ModalContext.Provider>
+	<ModalContext.Provider value={{ open, close }}>
+		{children}
+		{content &&
+			createPortal(
+				<div className="modal_backdrop" onClick={close}>
+				<div className="modal_window" onClick={e => e.stopPropagation()}>
+					<div className="modal_body">{content.body}</div>
+					<button onClick={close}>Close</button>
+				</div>
+				</div>,
+				document.body
+			)}
+	</ModalContext.Provider>
   );
 }
 

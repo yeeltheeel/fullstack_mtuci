@@ -22,7 +22,7 @@ export default function LocationCard({ location }: Props) {
 			<div className="details_button">
 				<button onClick={() =>
 					modal.open({
-						body: <LocationDetails location={location} />,
+						body: <LocationDetails location={location} onClose={() => modal.close()}/>,
 					})}>
 					<img src={DetailsIcon} alt="Show details" />
 				</button>

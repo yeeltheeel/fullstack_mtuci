@@ -20,8 +20,7 @@ export const router = createBrowserRouter([
 		user: await load_remote_user(),
 	}),
 	shouldRevalidate: ({ currentUrl, nextUrl }) => {
-		// no unnecessary reruns
-		return currentUrl.pathname !== nextUrl.pathname;
+		return currentUrl.pathname !== nextUrl.pathname; // no unnecessary reruns
 	},
 	children: [
 	  {
@@ -29,11 +28,18 @@ export const router = createBrowserRouter([
 		Component: HomePage,
 	  },
 	  {
-		path: "catalogue",
-		Component: CataloguePage, 
-		loader: async () => {
-			return { books: await load_remote_books() };
-		},
+		// path: "catalogue",
+		// Component: CataloguePage, 
+		// loader: async () => {
+		// 	return { books: await load_remote_books() };
+		// },
+		path: "catalogue/:locationId?",
+        Component: CataloguePage,
+        loader: async ({ params }) => {
+          return {
+            books: await load_remote_books(params.locationId ?? null),
+          };
+        },
 	  },
 	  {
 		path: "locations",
