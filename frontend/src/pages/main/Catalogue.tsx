@@ -11,11 +11,11 @@ export default function CataloguePage() {
 		<div className="list_display">
 			<h1>Catalogue</h1>
 
-			{ locationId && (
+			{locationId && (
 				<div>
 					<h2>Books at location # {locationId}</h2>
 					<Link to="/catalogue">Clear filter</Link>
-					<div style={{height: 1 + 'em'}}></div>
+					<div style={{ height: 1 + 'em' }}></div>
 				</div>
 			)}
 
