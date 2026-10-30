@@ -9,7 +9,13 @@ import RegisterPage from "./pages/auth/Register";
 import NotFoundPage from "./pages/main/NotFound";
 import EditProfilePage from "./pages/auth/EditProfile";
 import ChangePasswordPage from "./pages/auth/ChangePassword";
-import { load_remote_user, load_remote_books, load_remote_locations, load_remote_bookings } from "./data/Api";
+import { 
+	load_remote_user, 
+	load_remote_books, 
+	load_remote_locations, 
+	load_remote_bookings,
+	fetch_location
+} from "./data/Api";
 
 export const router = createBrowserRouter([
   {
@@ -28,17 +34,15 @@ export const router = createBrowserRouter([
 		Component: HomePage,
 	  },
 	  {
-		// path: "catalogue",
-		// Component: CataloguePage, 
-		// loader: async () => {
-		// 	return { books: await load_remote_books() };
-		// },
 		path: "catalogue/:locationId?",
         Component: CataloguePage,
         loader: async ({ params }) => {
-          return {
-            books: await load_remote_books(params.locationId ?? null),
-          };
+			const locationId = params.locationId ?? null;
+			const [books, location] = await Promise.all([
+				load_remote_books(locationId),
+				locationId ? fetch_location(locationId) : Promise.resolve(null),
+			]);
+			return { books, location };
         },
 	  },
 	  {

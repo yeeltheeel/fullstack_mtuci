@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16
+    image: postgres:17
     container_name: bookexchange-db
     environment:
       POSTGRES_USER: bookexchange
@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U bookexchange" ]
+      test: [ "CMD-SHELL", "pg_isready -U bookexchange -d bookexchange" ]
       interval: 3s
       timeout: 3s
       retries: 10
@@ -26,23 +26,28 @@ services:
       DEBUG: "true"
       PYTHONUNBUFFERED: "1"
     ports:
-      - "8000:8000"
-      - "5678:5678"
+      - "8080:8080"
     volumes:
       - ./backend:/app
     depends_on:
       db:
         condition: service_healthy
     command: >
-      python -m debugpy
-        --listen 0.0.0.0:5678
-        --wait-for-client
-        -m uvicorn main:app
-        --host 0.0.0.0
-        --port 8000
-        --reload
-        --reload-dir /app
+      python -m debugpy 
+        --listen 0.0.0.0:5678 
+        -m uvicorn main:app --host 0.0.0.0 --port 8080 --reload --reload-dir /app
     restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: bookexchange-frontend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on: backend
+    restart: on-failure
 
 volumes:
   bookexchange-data:

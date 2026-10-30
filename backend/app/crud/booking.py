@@ -6,14 +6,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import Booking, Stock
 
 ALLOWED_TRANSITIONS: dict[str, set[str]] = {
-    "pending":   {"ongoing", "cancelled"},
-    "ongoing":   {"late", "closed"},
-    "late":      {"closed"},
-    "closed":    set(),
+    "pending": {"active", "cancelled"},
+    "active": {"overdue", "closed"},
+    "overdue": {"closed"},
+    "closed": set(),
     "cancelled": set(),
 }
 
-RESERVING = {"pending", "ongoing", "late"}
+RESERVING = {"pending", "active", "overdue"}
 
 def _full(stmt):
     return stmt.options(

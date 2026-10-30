@@ -534,6 +534,10 @@ https://www.flaticon.com/free-icons/succulent
 
 .modal_body h4 {
 	color: var(--comment);
+	margin: 0;
+}
+.modal_body h4 p {
+	margin: 0;
 }
 
 .modal_body p {

@@ -12,7 +12,7 @@ class Booking(Base):
 			name="stock_id",
 		),
 		CheckConstraint(
-			"stat in ('pending', 'ongoing', 'late', 'closed', 'cancelled')",
+			"stat in ('pending', 'active', 'ovedue', 'closed', 'cancelled')",
 			name="ck_booking_stat",
 		),
 	)

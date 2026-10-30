@@ -14,7 +14,7 @@ export type Book = {
 	description: string;
 	available: Array<number>;
 	locations: Array<Location>;
-} 
+}
 
 export type Location = {
 	id: number;
@@ -30,8 +30,8 @@ export type Booking = {
 	user: User;
 	location: Location;
 	book: Book;
-	time_created: Date;
-	time_due: Date;
-	time_closed: Date;
+	time_created: string;
+	time_due: string | null;
+	time_closed: string | null;
 	status: string;
 }

@@ -8,10 +8,10 @@ from app.schemas.book import BookBrief
 from app.schemas.location import LocationOut
 
 class BookingStatus(StrEnum):
-    PENDING   = "pending"
-    ONGOING   = "ongoing"
-    LATE      = "late"
-    CLOSED    = "closed"
+    PENDING = "pending"
+    ACTIVE = "active"
+    OVERDUE = "overdue"
+    CLOSED = "closed"
     CANCELLED = "cancelled"
 
 class BookingCreate(BaseModel):
