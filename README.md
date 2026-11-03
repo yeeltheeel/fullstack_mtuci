@@ -34,6 +34,10 @@
 
 ![Информация о бронировании](docs/screenshots/Screenshot%20(88).png)
 
+## База данных
+
+![Схема](docs/schema.png)
+
 <!-- to-do:
     backend return must match frontend
     frontend structure
