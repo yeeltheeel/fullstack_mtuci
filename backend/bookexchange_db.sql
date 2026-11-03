@@ -24,11 +24,19 @@ create table locations {
 	descr varchar(255),
 };
 
+create table stock {
+	book_id integer not null references books(book_id),
+	loc_id integer not null references locations(loc_id),
+	available integer default 0 check (available >= 0),
+	reserved integer default 0 check (reserved >= 0),
+	constraint stock_id primary key (book_id, loc_id)
+};
+
 create table bookings {
 	bk_id serial primary key,
 	user_id integer references users(user_id),
-	book_id integer references books(book_id),
-	loc_id integer references locations(loc_id),
+	book_id integer not null,
+	loc_id integer not null,
 	time_created timestamp not null default current_timestamp,
 	time_due timestamp,
 	time_closed timestamp,
@@ -36,12 +44,4 @@ create table bookings {
 	constraint stock_id
 		foreign key (book_id, loc_id)
 		references stock(book_id, loc_id)
-};
-
-create table stock {
-	book_id integer not null references books(book_id),
-	loc_id integer not null references locations(loc_id),
-	available integer default 0 check (available >= 0),
-	reserved integer default 0 check (reserved >= 0),
-	constraint stock_id primary key (book_id, loc_id)
 };

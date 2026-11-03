@@ -18,21 +18,21 @@
 
 ![Регистрация](docs/screenshots/Screenshot%20(86).png)
 
-![Главная страница](docs/screenshots/Screenshot%20(77).png)
+![Главная страница](docs/screenshots/Screenshot%20(91).png)
 
-![Информация о пользователе](docs/screenshots/Screenshot%20(84).png)
+![Информация о пользователе](docs/screenshots/Screenshot%20(87).png)
 
 ![Каталог](docs/screenshots/Screenshot%20(76).png)
 
-![Информация о книге](docs/screenshots/Screenshot%20(81).png)
+![Информация о книге](docs/screenshots/Screenshot%20(90).png)
 
-![Локации](docs/screenshots/Screenshot%20(78).png)
+![Локации](docs/screenshots/Screenshot%20(89).png)
 
 ![Информация о локации](docs/screenshots/Screenshot%20(82).png)
 
 ![Бронирование](docs/screenshots/Screenshot%20(79).png)
 
-![Информация о бронировании](docs/screenshots/Screenshot%20(83).png)
+![Информация о бронировании](docs/screenshots/Screenshot%20(88).png)
 
 <!-- to-do:
     backend return must match frontend

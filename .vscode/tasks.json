@@ -1,9 +1,9 @@
 {
 	"version": "2.0.0",
 	"tasks": [
-		// ─── Docker Desktop lifecycle ─────────────────────────────────
+		// docker desktop lifecycle 
 		{
-			"label": "docker: start Docker Desktop",
+			"label": "docker: start docker desktop",
 			"type": "shell",
 			"command": "docker desktop start -d",
 			"windows": {
@@ -22,7 +22,7 @@
 			}
 		},
 		{
-			"label": "docker: stop Docker Desktop",
+			"label": "docker: stop docker desktop",
 			"type": "shell",
 			"command": "docker desktop stop",
 			"windows": {
@@ -53,7 +53,7 @@
 				"panel": "shared"
 			}
 		},
-		// ─── Backend stack (db + backend) ─────────────────────────────
+		// backend stack (db + backend) 
 		{
 			"label": "docker: up db only",
 			"type": "shell",
@@ -100,7 +100,7 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "docker: nuke backend stack (wipe DB)",
+			"label": "docker: nuke backend stack (wipe db)",
 			"type": "shell",
 			"command": "docker compose -f docker-compose.yml down -v",
 			"options": {
@@ -108,7 +108,7 @@
 			},
 			"problemMatcher": []
 		},
-		// ─── Full stack (db + backend + frontend) ─────────────────────
+		// full stack (db + backend + frontend)
 		{
 			"label": "docker: up full stack",
 			"type": "shell",
