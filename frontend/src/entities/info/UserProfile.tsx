@@ -1,6 +1,7 @@
 import type { User } from '../../data/Types';
 import DefaultAvatar from '../../shared/icons/bookworm.png';
 import { useNavigate } from 'react-router';
+import { delete_remote_user, logout } from '../../data/Api';
 
 type Prop = {
 	user: User;
@@ -19,6 +20,16 @@ export default function UserProfile({ user, onClose }: Prop) {
 	function OpenChangePass() {
 		onClose();
 		navigate('/password');
+	}
+
+	function LogOut(){
+		onClose();
+		logout();
+	}
+
+	function DeleteAccount(){
+		onClose();
+		delete_remote_user();
 	}
 
 	return (<>
@@ -45,7 +56,7 @@ export default function UserProfile({ user, onClose }: Prop) {
 
 		<button className="user_profile_btn" type="button" onClick={OpenEditProfile}>Edit profile</button>
 		<button className="user_profile_btn" type="button" onClick={OpenChangePass}>Change password</button>
-		<button className="user_profile_btn" type="button">Log out</button>
-		<button type="button">Delete account</button>
+		<button className="user_profile_btn" type="button" onClick={LogOut}>Log out</button>
+		<button type="button" onClick={DeleteAccount}>Delete account</button>
 	</>)
 }

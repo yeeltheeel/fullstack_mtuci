@@ -21,7 +21,7 @@ create table locations (
 	city varchar(255),
 	street varchar(255),
 	house varchar(255),
-	descr varchar(255),
+	descr varchar(255)
 );
 
 create table stock (
@@ -34,14 +34,14 @@ create table stock (
 
 create table bookings (
 	bk_id serial primary key,
-	user_id integer references users(user_id),
+	user_id integer not null references users(user_id),
 	book_id integer not null,
 	loc_id integer not null,
 	time_created timestamp not null default current_timestamp,
 	time_due timestamp,
 	time_closed timestamp,
 	stat varchar(255) not null default 'pending',
-	constraint stock_id
+	constraint stock_id_fk
 		foreign key (book_id, loc_id)
 		references stock(book_id, loc_id)
 );

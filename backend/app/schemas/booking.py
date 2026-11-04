@@ -4,7 +4,7 @@ from enum import StrEnum
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.schemas.user import UserOut
-from app.schemas.book import BookBrief
+from app.schemas.book import BookOut
 from app.schemas.location import LocationOut
 
 class BookingStatus(StrEnum):
@@ -27,7 +27,7 @@ class BookingOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     bk_id: int
     user: UserOut
-    book: BookBrief
+    book: BookOut
     location: LocationOut
     time_created: datetime
     time_due: datetime | None

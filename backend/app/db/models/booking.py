@@ -12,15 +12,15 @@ class Booking(Base):
 			name="stock_id",
 		),
 		CheckConstraint(
-			"stat in ('pending', 'active', 'ovedue', 'closed', 'cancelled')",
+			"stat in ('pending', 'active', 'overdue', 'closed', 'cancelled')",
 			name="ck_booking_stat",
 		),
 	)
 
 	bk_id:        Mapped[int] = mapped_column(primary_key=True)
-	user_id:      Mapped[int | None] = mapped_column(ForeignKey("users.user_id"))
-	book_id:      Mapped[int | None]
-	loc_id:       Mapped[int | None]
+	user_id:      Mapped[int] = mapped_column(ForeignKey("users.user_id"))
+	book_id:      Mapped[int] = mapped_column(ForeignKey("books.book_id"))
+	loc_id:       Mapped[int] = mapped_column(ForeignKey("locations.loc_id"))
 	time_created: Mapped[datetime] = mapped_column(DateTime, server_default=func.current_timestamp())
 	time_due:     Mapped[datetime | None] = mapped_column(DateTime)
 	time_closed:  Mapped[datetime | None] = mapped_column(DateTime)

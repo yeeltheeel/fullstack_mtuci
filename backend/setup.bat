@@ -12,14 +12,13 @@ alembic current
 REM create db
 py seed.py
 
-@REM  REM start db
-@REM  docker desktop start
-@REM  cd ..
-@REM  docker compose up -d
-
 REM start app
 uvicorn app.main:app --reload
 
-@REM  REM finish
-@REM  docker compose down
-@REM  docker desktop stop
+@REM start all
+docker desktop start
+docker compose up -d
+
+@REM finish all
+docker compose down -v
+docker desktop stop

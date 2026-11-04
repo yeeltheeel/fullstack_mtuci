@@ -1,11 +1,13 @@
 import { useRouteLoaderData } from "react-router";
 import { useState } from 'react';
 import type { User } from '../../data/Types';
+import { update_remote_user } from '../../data/Api';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function EditProfilePage(){
     const { user } = useRouteLoaderData("root") as { user: User | null };
+	const [avatar, setAvatar] = useState('');
     const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [birthday, setBirthday] = useState('');
@@ -16,10 +18,11 @@ export default function EditProfilePage(){
 		e.preventDefault();
 		if (!emailValid){
 			if (!emailValid)
-				window.alert(`incorrect email`)
+				window.alert(`Incorrect email`)
 			return;
 		}
-		window.alert(`update: ${username}, ${email}, ${birthday}`)
+		// window.alert(`update: ${username}, ${email}, ${birthday}`)
+		update_remote_user({username, email, birthday, avatar});
 	}
 
     return (
@@ -51,6 +54,16 @@ export default function EditProfilePage(){
 						type="date"
 						value={birthday}
 						onChange={e => setBirthday(e.target.value)}
+					/>
+				</label>
+				<label>
+					Avatar URL
+					<input
+						type="text"
+						placeholder=""
+						value={username}
+						minLength={1}
+						onChange={e => setAvatar(e.target.value)}
 					/>
 				</label>
 				<button type="submit">Save</button>

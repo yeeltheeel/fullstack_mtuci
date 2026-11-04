@@ -1,6 +1,7 @@
 import { useRouteLoaderData } from "react-router";
 import { useState } from "react";
 import type { Book, User } from '../../data/Types';
+import { create_booking } from '../../data/Api';
 
 type Props = {
 	book: Book;
@@ -16,7 +17,7 @@ export default function BookDetails({book, onClose}: Props){
 		return user !== null;
 	}
 	
-	function handleNewBooking() {
+	async function handleNewBooking() {
 		if (!isLoggedIn(user)) {
 			window.alert("Log in or register first");
 			return;
@@ -25,7 +26,12 @@ export default function BookDetails({book, onClose}: Props){
 			window.alert("Pick a location first");
 			return;
 		}
-		window.alert(`Booked ${book.title} at ${selectedLocation.city}`);
+		// window.alert(`Booked ${book.title} at ${selectedLocation.city}`);
+		await create_booking({
+			book_id: book.id,
+			loc_id: selectedLocation.id,
+			due_days: 14,
+		});
 		onClose();
 	} 
 

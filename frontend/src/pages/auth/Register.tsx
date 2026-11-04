@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { register } from '../../data/Api';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -31,7 +32,8 @@ export default function RegisterPage() {
 				window.alert(`passwords do not match`)
 			return;
 		}
-		window.alert(`register: ${username}, ${email}, ${birthday}, ${password}, ${confirm}`)
+		// window.alert(`register: ${username}, ${email}, ${birthday}, ${password}, ${confirm}`);
+		register({ username, email, password});
 		navigate('/');
 	}
 
@@ -74,6 +76,7 @@ export default function RegisterPage() {
 						value={password}
 						minLength={4}
 						maxLength={10}
+						autoComplete="current-password"
 						onChange={e => setPassword(e.target.value)}
 					/>
 				</label>
@@ -85,6 +88,7 @@ export default function RegisterPage() {
 						value={confirm}
 						minLength={4}
 						maxLength={10}
+						autoComplete="current-password"
 						onChange={e => setConfirm(e.target.value)}
 					/>
 				</label>

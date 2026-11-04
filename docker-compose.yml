@@ -35,9 +35,7 @@ services:
       db:
         condition: service_healthy
     command: >
-      python -Xfrozen_modules=off -m debugpy 
-        --listen 0.0.0.0:5678 
-        -m uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir /app
+      sh -c "alembic upgrade head && python seed.py && exec python -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 -m uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir /app"
     restart: unless-stopped
 
   frontend:
@@ -45,6 +43,7 @@ services:
     container_name: bookexchange-frontend
     ports:
       - "8000:8000"
+      - "5678:5678" # debug
     volumes:
       - ./frontend:/app
       - /app/node_modules

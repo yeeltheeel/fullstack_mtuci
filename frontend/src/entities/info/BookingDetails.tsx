@@ -1,5 +1,6 @@
 import type { Booking } from '../../data/Types';
 import { print_full } from '../../data/Local';
+import { delete_remote_booking } from '../../data/Api';
 
 type Props = {
 	booking: Booking;
@@ -7,9 +8,15 @@ type Props = {
 }
 
 export default function BookDetails({ booking, onClose }: Props) {
-	function CancelBooking() {
-		window.alert(`${booking.id}`)
-		// remove_booking(booking);
+	async function CancelBooking() {
+		// window.alert(`${booking.id}`)
+		if (!window.confirm("Are you sure?")) return;
+		try {
+			await delete_remote_booking(booking.id);
+		} catch (e) {
+			console.error(e);
+			return;
+		}
 		onClose();
 	}
 	const locNameL = print_full(booking.location);

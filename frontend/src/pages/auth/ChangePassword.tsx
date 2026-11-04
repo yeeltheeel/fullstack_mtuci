@@ -1,6 +1,7 @@
 import { useRouteLoaderData } from "react-router";
 import { useState } from 'react';
 import type { User } from '../../data/Types';
+import { update_remote_password } from '../../data/Api';
 
 export default function ChangePasswordPage() {
 	const { user } = useRouteLoaderData("root") as { user: User | null };
@@ -17,12 +18,13 @@ export default function ChangePasswordPage() {
 		e.preventDefault();
 		if (!formValid) {
 			if (!passValid)
-				window.alert(`invalid password`)
+				window.alert(`Invalid password`)
 			else if (!confirmValid)
-				window.alert(`passwords do not match`)
+				window.alert(`Passwords do not match`)
 			return;
 		}
-		window.alert(`register: ${password}, ${new_password}`)
+		// window.alert(`register: ${password}, ${new_password}`)
+		update_remote_password(password, new_password);
 	}
 
 	return (

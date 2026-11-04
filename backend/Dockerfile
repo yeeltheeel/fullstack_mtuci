@@ -18,4 +18,6 @@ COPY . .
 
 EXPOSE 8080 5678
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD alembic upgrade head && \
+    python seed.py && \
+    exec uvicorn app.main:app --host 0.0.0.0 --port 8080

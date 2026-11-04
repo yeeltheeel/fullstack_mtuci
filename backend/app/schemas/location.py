@@ -16,9 +16,12 @@ class LocationCreate(BaseModel):
 	house: str | None = None
 	descr: str | None = None
 
-class LocationUpdate(BaseModel):
-	country: str | None = None
-	city: str | None = None
-	street: str | None = None
-	house: str | None = None
-	descr: str | None = None
+class LocationUpdate(LocationCreate):
+	pass
+
+# class LocationUpdate(BaseModel):
+# 	country: str | None = None
+# 	city: str | None = None
+# 	street: str | None = None
+# 	house: str | None = None
+# 	descr: str | None = None

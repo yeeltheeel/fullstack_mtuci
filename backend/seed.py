@@ -1,15 +1,15 @@
 import asyncio
 from datetime import date, datetime, timedelta
 from app.db.session import SessionLocal
-from sqlalchemy import text
+from sqlalchemy import text, select, func
 from app.db.models import User, Book, Location, Stock, Booking
 from app.core.security import hash_password
 from random import randint
 
-def get_data():
+def get_main_data():
 	users = [
 		User(
-			username="Test User", 
+			username="mr admin", 
 			email="admin@example.com",
 			password_hash=hash_password("adminpass"),
 			birthday=date(1997, 3, 24)
@@ -110,7 +110,10 @@ def get_data():
 			descr="Compact pickup point near the metro, open daily 11:00-22:00."
 		)
 	]
+	
+	return users, books, locations
 
+def get_data(users, books, locations):
 	stocks = []
 	for book in books:
 		for location in locations:
@@ -133,7 +136,7 @@ def get_data():
 			time_created=now - timedelta(days=10),
 			time_due=now + timedelta(days=4),
 			time_closed=None,
-			stat="ongoing",
+			stat="active",
 		),
 		Booking(
 			user_id=users[1].user_id, 
@@ -142,7 +145,7 @@ def get_data():
 			time_created=now - timedelta(days=3),
 			time_due=now + timedelta(days=11),
 			time_closed=None,
-			stat="ongoing",
+			stat="active",
 		),
 		# closed
 		Booking(
@@ -171,7 +174,7 @@ def get_data():
 			time_created=now - timedelta(days=25),
 			time_due=now - timedelta(days=11),
 			time_closed=None,
-			stat="late",
+			stat="overdue",
 		),
 		# cancelled
 		Booking(
@@ -194,27 +197,34 @@ def get_data():
 			stat="pending",
 		),
 	]
-	
-	return users, books, locations, stocks, bookings
+
+	return stocks, bookings
 
 async def seed() -> None:
 	async with SessionLocal() as db:
-		await db.execute(text(
-			"truncate bookings, stock, books, locations, users restart identity cascade"
-		))
-		await db.commit()
+		if await db.scalar(select(func.count()).select_from(User)):
+			print("seed: already seeded, skipping")
+			return
 
-		users, books, locations, stocks, bookings = get_data()
+		# await db.execute(text(
+		# 	"truncate bookings, stock, books, locations, users restart identity cascade"
+		# ))
+		# await db.commit()
+
+		users, books, locations = get_main_data()
 		
 		db.add_all(users)
 		db.add_all(books)
 		db.add_all(locations)
 		await db.flush()
 
+		stocks, bookings = get_data(users, books, locations)
+
 		db.add_all(stocks)
+		await db.flush()
 		db.add_all(bookings)
 		await db.commit()
-	print("database ready")
+		print("database ready")
 
 if __name__ == "__main__":
 	asyncio.run(seed())

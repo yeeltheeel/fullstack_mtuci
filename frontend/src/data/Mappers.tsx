@@ -1,106 +1,57 @@
 import type { User, Book, Location, Booking } from "./Types";
 
-export type UserRow = {
-	user_id: number;
-	username: string | null;
-	birthday: string | Date | null; // pg may return Date or "YYYY-MM-DD"
-	email: string;
-	avatar_url: string | null;
-	password_hash: string;
-};
+import type {
+	UserOut,
+	BookOut,
+	BookFullDto,
+	LocationOut,
+	BookingOut
+} from "./Dto";
 
-export type BookRow = {
-	book_id: number;
-	title: string | null;
-	author: string | null;
-	genre: string | null;
-	descr: string | null;
-};
-
-export type LocationRow = {
-	loc_id: number;
-	country: string | null;
-	city: string | null;
-	street: string | null;
-	house: string | null;
-	descr: string | null;
-};
-
-export type BookingRow = {
-	bk_id: number;
-	user_id: number;
-	book_id: number;
-	loc_id: number;
-	time_created: Date | string;
-	time_due: Date | string | null;
-	time_closed: Date | string | null;
-	stat: string;
-};
-
-export type StockRow = {
-	book_id: number;
-	loc_id: number;
-	available: number;
-	reserved: number;
-};
-
-const toIso = (v: Date | string): string =>
-	v instanceof Date ? v.toISOString() : new Date(v).toISOString();
-
-const toIsoOrNull = (v: Date | string | null): string | null =>
-	v == null ? null : toIso(v);
-
-const toDateOnly = (v: Date | string | null): string | undefined => {
-	if (v == null) return undefined;
-	if (v instanceof Date) return v.toISOString().slice(0, 10);
-	return v.slice(0, 10);
-};
-
-export const mapUserRow = (row: UserRow): User => ({
-	id: row.user_id,
-	username: row.username ?? '',
-	birthday: toDateOnly(row.birthday),
-	email: row.email,
-	avatar: row.avatar_url,
+export const mapUserOut = (u: UserOut): User => ({
+	id: u.user_id,
+	username: u.username ?? "",
+	birthday: u.birthday ?? undefined,
+	email: u.email,
+	avatar: u.avatar
 });
 
-export const mapLocationRow = (row: LocationRow): Location => ({
-	id: row.loc_id,
-	country: row.country ?? '',
-	city: row.city ?? '',
-	street: row.street ?? '',
-	house: row.house ?? '',
-	description: row.descr ?? '',
+export const mapLocationOut = (l: LocationOut): Location => ({
+	id: l.loc_id,
+	country: l.country ?? "",
+	city: l.city ?? "",
+	street: l.street ?? "",
+	house: l.house ?? "",
+	description: l.descr ?? ""
 });
 
-export type BookWithRelationsRow = BookRow & {
-	available_location_ids: number[] | null;
-	locations: LocationRow[] | null;
-};
-
-export const mapBookRow = (row: BookWithRelationsRow): Book => ({
-	id: row.book_id,
-	title: row.title ?? '',
-	author: row.author ?? '',
-	genre: row.genre ?? '',
-	description: row.descr ?? '',
-	available: row.available_location_ids ?? [],
-	locations: (row.locations ?? []).map(mapLocationRow),
+export const mapBookOut = (b: BookOut): Book => ({
+	id: b.book_id,
+	title: b.title ?? "",
+	author: b.author ?? "",
+	genre: b.genre ?? "",
+	description: b.descr ?? "",
+	available: [],
+	locations: []
 });
 
-export type BookingJoinedRow = BookingRow & {
-	user: UserRow;
-	location: LocationRow;
-	book: BookWithRelationsRow;
-};
+export const mapBookFull = (b: BookFullDto): Book => ({
+	id: b.book_id,
+	title: b.title ?? "",
+	author: b.author ?? "",
+	genre: b.genre ?? "",
+	description: b.descr ?? "",
+	available: b.available,
+	locations: b.locations.map(mapLocationOut)
+});
 
-export const mapBookingRow = (row: BookingJoinedRow): Booking => ({
-	id: row.bk_id,
-	user: mapUserRow(row.user),
-	location: mapLocationRow(row.location),
-	book: mapBookRow(row.book),
-	time_created: toIso(row.time_created),
-	time_due: toIsoOrNull(row.time_due),
-	time_closed: toIsoOrNull(row.time_closed),
-	status: row.stat,
+export const mapBookingOut = (b: BookingOut): Booking => ({
+	id: b.bk_id,
+	user: mapUserOut(b.user),
+	book: mapBookOut(b.book),
+	location: mapLocationOut(b.location),
+	time_created: b.time_created,
+	time_due: b.time_due,
+	time_closed: b.time_closed,
+	status: b.stat
 });

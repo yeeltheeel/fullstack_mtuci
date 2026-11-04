@@ -9,7 +9,7 @@ class Book(Base):
     title:   Mapped[str | None] = mapped_column(String(255))
     author:  Mapped[str | None] = mapped_column(String(255))
     genre:   Mapped[str | None] = mapped_column(String(255))
-    descr:   Mapped[str | None] = mapped_column(String(300))
+    descr:   Mapped[str | None] = mapped_column(String(3000))
 
     stock:    Mapped[list["Stock"]]   = relationship(back_populates="book")
     bookings: Mapped[list["Booking"]] = relationship(back_populates="book")

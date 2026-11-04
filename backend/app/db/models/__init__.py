@@ -8,6 +8,6 @@ __all__ = [
 	"User",
 	"Book",
 	"Location",
-	"Booking",
-	"Stock"
+	"Stock",
+    "Booking"
 ]

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { login } from '../../data/Api';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,7 +25,8 @@ export default function LoginPage() {
 				window.alert(`invalid password`)
 			return;
 		}
-		window.alert(`login: ${email}, ${password}`)
+		//window.alert(`login: ${email}, ${password}`);
+		login(email, password);
 		navigate('/');
 	}
 
@@ -47,6 +49,7 @@ export default function LoginPage() {
 						value={password}
 						minLength={4}
 						maxLength={10}
+						autoComplete="current-password"
 						onChange={e => setPassword(e.target.value)}
 					/>
 				</label>
