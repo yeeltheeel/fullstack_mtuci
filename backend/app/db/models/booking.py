@@ -21,9 +21,9 @@ class Booking(Base):
 	user_id:      Mapped[int] = mapped_column(ForeignKey("users.user_id"))
 	book_id:      Mapped[int] = mapped_column(ForeignKey("books.book_id"))
 	loc_id:       Mapped[int] = mapped_column(ForeignKey("locations.loc_id"))
-	time_created: Mapped[datetime] = mapped_column(DateTime, server_default=func.current_timestamp())
-	time_due:     Mapped[datetime | None] = mapped_column(DateTime)
-	time_closed:  Mapped[datetime | None] = mapped_column(DateTime)
+	time_created: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.current_timestamp())
+	time_due:     Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+	time_closed:  Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 	stat:         Mapped[str] = mapped_column(String(255), default="pending")
 
 	user:     Mapped["User"]     = relationship(back_populates="bookings")

@@ -246,6 +246,8 @@ https://www.flaticon.com/free-icons/succulent
 .main_body img {
 	margin: 0.5em 0.5em;
 	border-radius: 1rem;
+	width: 100%;
+	height: auto;
 }
 
 .main_body a {
@@ -309,12 +311,20 @@ https://www.flaticon.com/free-icons/succulent
 .card h4 {
 	margin: 0.25em 1em;
 	color: color-mix(in srgb,
-		var(--accent-bg) 75%,
-		transparent);
+			var(--accent-bg) 75%,
+			transparent);
 }
 
 .list_display {
 	width: 95%;
+}
+
+.landing_image {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .card_img {
@@ -527,8 +537,8 @@ https://www.flaticon.com/free-icons/succulent
 
 .modal_body li:has(input:checked) span {
 	color: color-mix(in srgb,
-		var(--accent-bg) 25%,
-		var(--comment));
+			var(--accent-bg) 25%,
+			var(--comment));
 	font-weight: 600;
 }
 
@@ -536,6 +546,7 @@ https://www.flaticon.com/free-icons/succulent
 	color: var(--comment);
 	margin: 0;
 }
+
 .modal_body h4 p {
 	margin: 0;
 }

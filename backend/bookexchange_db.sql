@@ -12,7 +12,7 @@ create table books (
 	title varchar(255),
 	author varchar(255),
 	genre varchar(255),
-	descr varchar(300)
+	descr varchar(3000)
 );
 
 create table locations (
@@ -37,9 +37,9 @@ create table bookings (
 	user_id integer not null references users(user_id),
 	book_id integer not null,
 	loc_id integer not null,
-	time_created timestamp not null default current_timestamp,
-	time_due timestamp,
-	time_closed timestamp,
+	time_created timestamp with time zone not null default current_timestamp,
+	time_due timestamp with time zone,
+	time_closed timestamp with time zone,
 	stat varchar(255) not null default 'pending',
 	constraint stock_id_fk
 		foreign key (book_id, loc_id)

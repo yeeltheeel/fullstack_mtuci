@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { login } from '../../data/Api';
+import { login, ApiError } from '../../data/Api';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function LoginPage() {
 	const navigate = useNavigate();
+	const [busy, setBusy] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -14,7 +17,7 @@ export default function LoginPage() {
 	const passValid = password.length > 4
 	const formValid = inputValid && emailValid && passValid;
 
-	function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+	async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		if (!formValid) {
 			if (!inputValid)
@@ -26,8 +29,23 @@ export default function LoginPage() {
 			return;
 		}
 		//window.alert(`login: ${email}, ${password}`);
-		login(email, password);
+		await login(email, password);
 		navigate('/');
+
+		setBusy(true);
+		setError(null);
+		try {
+			await login(email, password); 
+			navigate('/', { replace: true });
+		} catch (err) {
+			if (err instanceof ApiError && err.status === 401) {
+				setError('Invalid email or password');
+			} else {
+				setError('Login failed. Try again.');
+			}
+		} finally {
+			setBusy(false);
+		}
 	}
 
 	return (

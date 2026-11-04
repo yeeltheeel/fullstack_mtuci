@@ -18,7 +18,7 @@
 
 ![Регистрация](docs/screenshots/Screenshot%20(86).png)
 
-![Главная страница](docs/screenshots/Screenshot%20(91).png)
+![Главная страница](docs/screenshots/Screenshot%20(92).png)
 
 ![Информация о пользователе](docs/screenshots/Screenshot%20(87).png)
 
@@ -46,3 +46,7 @@
     selectable locations for booking (if came from filtered then select it)
     docker-compose for all
 -->
+
+# Серверная часть
+
+![](docs/screenshots/Screenshot%20(93).png)

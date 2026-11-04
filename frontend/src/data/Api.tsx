@@ -28,14 +28,14 @@ export const tokens = {
 	set(access: string, refresh: string) {
 		localStorage.setItem(ACCESS_KEY, access);
 		localStorage.setItem(REFRESH_KEY, refresh);
-		},
+	},
 	clear() {
 		localStorage.removeItem(ACCESS_KEY);
 		localStorage.removeItem(REFRESH_KEY);
 	},
 	expiredOrNear(skewMs = 30_000): boolean {
 		const a = this.access;
-		if (!a) 
+		if (!a)
 			return true;
 		try {
 			const payload = JSON.parse(atob(a.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
@@ -50,8 +50,9 @@ let refreshing: Promise<void> | null = null;
 
 async function doRefresh(): Promise<void> {
 	const refresh_token = tokens.refresh;
-	if (!refresh_token) 
-		throw new ApiError(401, "No refresh token");
+	if (!refresh_token)
+		return;
+		// throw new ApiError(401, "No refresh token");
 
 	const res = await fetch(`${BACKEND_URL}/auth/refresh`, {
 		method: "POST",
@@ -67,10 +68,12 @@ async function doRefresh(): Promise<void> {
 }
 
 function ensureFreshAccess(): Promise<void> {
-	if (!tokens.expiredOrNear()) 
+	if (!tokens.expiredOrNear())
 		return Promise.resolve();
-	if (!refreshing) refreshing = doRefresh().finally(() => { 
-		refreshing = null; 
+	if (!tokens.refresh)
+		return Promise.resolve();
+	if (!refreshing) refreshing = doRefresh().finally(() => {
+		refreshing = null;
 	});
 	return refreshing;
 }
@@ -80,7 +83,7 @@ type Options = RequestInit & { skipAuth?: boolean; _retried?: boolean };
 export async function api<T>(path: string, init?: Options): Promise<T> {
 	const { skipAuth, _retried, ...rest } = init ?? {};
 
-	if (!skipAuth) 
+	if (!skipAuth)
 		await ensureFreshAccess();
 
 	const token = skipAuth ? null : tokens.access;
@@ -96,7 +99,7 @@ export async function api<T>(path: string, init?: Options): Promise<T> {
 	// reactive retry — clock skew or another tab rotated already
 	if (res.status === 401 && !skipAuth && !_retried) {
 		tokens.clear();
-		await doRefresh().catch(() => {});
+		await doRefresh().catch(() => { });
 		return api<T>(path, { ...init, _retried: true });
 	}
 
@@ -104,7 +107,7 @@ export async function api<T>(path: string, init?: Options): Promise<T> {
 		const body = await res.json().catch(() => res.statusText);
 		throw new ApiError(res.status, body);
 	}
-	if (res.status === 204) 
+	if (res.status === 204)
 		return undefined as T;
 	return res.json() as Promise<T>;
 }
@@ -143,11 +146,14 @@ export function logout(): void {
 // api user
 
 export async function load_remote_user(userId: string | null = null): Promise<User | null> {
+	if (userId === null && !tokens.access && !tokens.refresh) {
+		return null;
+	}
 	const path = userId ? `/users/${Number(userId)}` : "/users/me";
 	try {
 		return mapUserOut(await api<UserOut>(path));
 	} catch (e) {
-		if (e instanceof ApiError && (e.status === 401 || e.status === 404)) 
+		if (e instanceof ApiError && (e.status === 401 || e.status === 404))
 			return null;
 		throw e;
 	}
@@ -188,8 +194,8 @@ export async function delete_remote_user(): Promise<void> {
 // api books
 
 export async function load_remote_books(locationId: string | null = null): Promise<Book[]> {
-	const books = (await api<BookFullDto[]>("/books/me")).map(mapBookFull);
-	if (!locationId) 
+	const books = (await api<BookFullDto[]>("/books")).map(mapBookFull);
+	if (!locationId)
 		return books;
 	const locId = Number(locationId);
 	return books.filter((b) => b.available.includes(locId));
@@ -198,7 +204,7 @@ export async function load_remote_books(locationId: string | null = null): Promi
 // api locations
 
 export async function load_remote_locations(): Promise<Location[]> {
-	const locations = (await api<LocationOut[]>("/locations/me")).map(mapLocationOut);
+	const locations = (await api<LocationOut[]>("/locations")).map(mapLocationOut);
 	return locations;
 }
 
@@ -207,7 +213,7 @@ export async function fetch_location(locationId: string): Promise<Location> {
 	if (!Number.isFinite(id)) {
 		throw new Error(`Invalid location id: ${locationId}`);
 	}
-	if (!Number.isFinite(id)) 
+	if (!Number.isFinite(id))
 		throw new Error(`Invalid location id: ${locationId}`);
 	const location = mapLocationOut(await api<LocationOut>(`/locations/${id}`));
 	return location;
@@ -216,7 +222,7 @@ export async function fetch_location(locationId: string): Promise<Location> {
 // api bookings
 
 export async function load_remote_bookings(userId: string | null = null): Promise<Booking[]> {
-	const bookings = (await api<BookingOut[]>("/bookings/me")).map(mapBookingOut);
+	const bookings = (await api<BookingOut[]>("/bookings")).map(mapBookingOut);
 	return userId ? bookings.filter((b) => String(b.user.id) === userId) : bookings;
 }
 
@@ -235,6 +241,6 @@ export async function create_booking(input: {
 
 export async function delete_remote_booking(
 	bookingId: number
-){
+) {
 	await api<void>(`/bookings/${bookingId}`, { method: "DELETE" });
 }

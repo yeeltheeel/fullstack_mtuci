@@ -19,7 +19,7 @@ export default function RegisterPage() {
 	const confirmValid = confirm.length > 0 && passwordsMatch;
 	const formValid = inputValid && emailValid && passValid && confirmValid;
 
-	function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+	async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		if (!formValid) {
 			if (!inputValid)
@@ -33,7 +33,8 @@ export default function RegisterPage() {
 			return;
 		}
 		// window.alert(`register: ${username}, ${email}, ${birthday}, ${password}, ${confirm}`);
-		register({ username, email, password});
+		await register({ username, email, password });
+		window.alert(`Thank you for registering with us`)
 		navigate('/');
 	}
 

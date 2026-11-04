@@ -1,7 +1,8 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import type { User } from '../../data/Types';
 import DefaultAvatar from '../../shared/icons/bookworm.png';
-import { useNavigate } from 'react-router';
-import { delete_remote_user, logout } from '../../data/Api';
+import { delete_remote_user, logout, ApiError } from '../../data/Api';
 
 type Prop = {
 	user: User;
@@ -10,6 +11,9 @@ type Prop = {
 
 export default function UserProfile({ user, onClose }: Prop) {
 	const navigate = useNavigate();
+	const [busy, setBusy] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+
 	const avatar_url = user.avatar ?? DefaultAvatar;
 
 	function OpenEditProfile() {
@@ -22,14 +26,30 @@ export default function UserProfile({ user, onClose }: Prop) {
 		navigate('/password');
 	}
 
-	function LogOut(){
+	function LogOut() {
 		onClose();
 		logout();
+		//navigate('/', { replace: true });
+		window.location.href = '/';
 	}
 
-	function DeleteAccount(){
+	async function DeleteAccount() {
 		onClose();
-		delete_remote_user();
+		setBusy(true);
+		setError(null);
+		try {
+			await delete_remote_user();
+			navigate('/', { replace: true });
+		} catch (err) {
+			if (err instanceof ApiError && err.status === 401) {
+				setError('Invalid email or password');
+			} else {
+				setError('Login failed. Try again.');
+			}
+		} finally {
+			setBusy(false);
+		}
+		window.alert('Successfully deleted')
 	}
 
 	return (<>

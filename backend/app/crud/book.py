@@ -61,7 +61,7 @@ async def stock_by_book_ids(
 
 	out: dict[int, dict] = defaultdict(lambda: {"available": [], "locations": []})
 	for book_id, available, loc in rows:
-		out[book_id]["locations"].append(loc)
 		if (available or 0) > 0:
-			out[book_id]["available"].append(loc.loc_id)
+			out[book_id]["available"].append(available)
+			out[book_id]["locations"].append(loc)
 	return out

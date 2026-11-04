@@ -8,7 +8,9 @@ export default function HomePage(){
 	return(
 		<div className="list_display">
 			<h1>Welcome, {logged ? (user.username):("avid bookworm")}</h1>
-			<img src={LandingImage} alt="Welcome"/>
+			<div className='landing_image'>
+				<img src={LandingImage} alt="Welcome" />
+			</div>
 		</div>
 	)
 }
