@@ -239,8 +239,13 @@ export async function create_booking(input: {
 	);
 }
 
-export async function delete_remote_booking(
+export async function cancel_remote_booking(
 	bookingId: number
 ) {
-	await api<void>(`/bookings/${bookingId}`, { method: "DELETE" });
+	return mapBookingOut(
+		await api<BookingOut>(
+			`/bookings/${bookingId}/cancel`, 
+			{ method: "PATCH" }
+		)
+	);
 }

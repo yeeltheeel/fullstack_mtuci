@@ -9,6 +9,20 @@ from app.schemas.booking import BookingOut, BookingCreate, BookingUpdate
 
 router = APIRouter(prefix="/bookings", tags=["bookings"])
 
+async def _transition(db, bk_id: int, current: User, *, target: str):
+	booking = await booking_crud.get_with_relations(db, bk_id)
+	if booking is None:
+		raise HTTPException(status.HTTP_404_NOT_FOUND, "booking not found")
+	if booking.user_id != current.user_id:
+		raise HTTPException(status.HTTP_403_FORBIDDEN, "not your booking")
+	try:
+		updated = await booking_crud.update_status(db, bk_id, status=target)
+	except ValueError as exc:
+		raise HTTPException(status.HTTP_409_CONFLICT, str(exc))
+	if updated is None:
+		raise HTTPException(status.HTTP_404_NOT_FOUND, "booking not found")
+	return updated
+
 @router.get("", response_model=list[BookingOut])
 async def list_all_bookings(
 	db: AsyncSession = Depends(get_db),
@@ -78,6 +92,14 @@ async def update_booking(
 	if booking is None:
 		raise HTTPException(status.HTTP_404_NOT_FOUND, "booking not found")
 	return booking
+
+@router.patch("/{bk_id}/cancel", response_model=BookingOut)
+async def cancel_booking(
+	bk_id: int,
+	db: AsyncSession = Depends(get_db),
+	current: User = Depends(get_current_user),
+):
+	return await _transition(db, bk_id, current, target="cancelled")
 
 @router.delete("/{bk_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_booking(

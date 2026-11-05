@@ -1,4 +1,4 @@
-import { useRouteLoaderData } from "react-router";
+import { useRouteLoaderData, useNavigate } from "react-router";
 import { useState } from "react";
 import type { Book, User } from '../../data/Types';
 import { create_booking } from '../../data/Api';
@@ -6,12 +6,20 @@ import { print_short } from "../../data/Local";
 
 type Props = {
 	book: Book;
+	locationId: number | null;
 	onClose: () => void;
 }
 
-export default function BookDetails({ book, onClose }: Props) {
+export default function BookDetails({ book, locationId, onClose }: Props) {
+	const navigate = useNavigate();
 	const { user } = useRouteLoaderData("root") as { user: User | null };
-	const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
+	const initialLocationId = (() => {
+		if (locationId != null && book.locations.some(l => l.id === locationId)) {
+			return locationId;
+		}
+		return book.locations[0]?.id ?? null;
+	})();
+	const [selectedLocationId, setSelectedLocationId] = useState<number | null>(initialLocationId);
 	const selectedLocation = book.locations.find((l) => l.id === selectedLocationId) ?? null;
 
 	function isLoggedIn(user: User | null): user is User {
@@ -33,6 +41,7 @@ export default function BookDetails({ book, onClose }: Props) {
 			due_days: 14,
 		});
 		window.alert(`Booked ${book.title} at ${print_short(selectedLocation)}`);
+		navigate("/catalogue", { replace: true });
 		onClose();
 	}
 

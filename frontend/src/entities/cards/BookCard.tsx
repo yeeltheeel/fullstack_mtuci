@@ -1,4 +1,4 @@
-import type { Book } from '../../data/Types';
+import type { Book, Location } from '../../data/Types';
 import Modal from '../ui/Modal';
 import BookIcon from '../../shared/icons/books.png';
 import DetailsIcon from '../../shared/icons/menu.png';
@@ -6,9 +6,10 @@ import BookDetails from "../info/BookDetails";
 
 type Props = {
 	book: Book;
+	location: Location | null;
 }
 
-export default function BookCard({ book }: Props) {
+export default function BookCard({ book, location }: Props) {
 	const modal = Modal();
 	return (
 		<div className="card">
@@ -24,7 +25,11 @@ export default function BookCard({ book }: Props) {
 				<button onClick={() =>
 					modal.open({
 						title: book.title,
-						body: <BookDetails book={book} onClose={() => modal.close()}/>,
+						body: <BookDetails 
+							book={book} 
+							locationId={location?.id ?? null} 
+							onClose={() => modal.close()}
+							/>,
 					})}>
 					<img src={DetailsIcon} alt="Show details" />
 				</button>

@@ -139,7 +139,7 @@ def get_data(users, books, locations):
 			stat="active",
 		),
 		Booking(
-			user_id=users[1].user_id, 
+			user_id=users[0].user_id, 
 			book_id=books[4].book_id, 
 			loc_id=locations[2].loc_id,
 			time_created=now - timedelta(days=3),

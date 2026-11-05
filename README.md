@@ -49,4 +49,4 @@
 
 # Серверная часть
 
-![](docs/screenshots/Screenshot%20(93).png)
+![Апи](docs/screenshots/Screenshot%20(93).png)

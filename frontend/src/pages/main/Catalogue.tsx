@@ -26,7 +26,7 @@ export default function CataloguePage() {
 
 			{books.length > 0 ? (
 				books.map((book) => (
-					<BookCard book={book} key={book.id} />
+					<BookCard book={book} location={location} key={book.id} />
 				))
 			) : (
 				<NoContentCard />

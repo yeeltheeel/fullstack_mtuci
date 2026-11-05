@@ -56,7 +56,8 @@ export const router = createBrowserRouter([
 		path: "bookings",
 		Component: BookingsPage,
 		loader: async() => {
-			return { bookings: await load_remote_bookings() }
+			const me = await load_remote_user(null);
+			return { bookings: await load_remote_bookings(me?.id ? String(me.id) : null) };
 		}
 	  },
 	  {

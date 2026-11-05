@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router";
 import type { Booking } from '../../data/Types';
 import { print_full } from '../../data/Local';
-import { delete_remote_booking } from '../../data/Api';
+import { cancel_remote_booking } from '../../data/Api';
 
 type Props = {
 	booking: Booking;
@@ -8,18 +9,21 @@ type Props = {
 }
 
 export default function BookDetails({ booking, onClose }: Props) {
+	const navigate = useNavigate();
+	const locNameL = print_full(booking.location);
+
 	async function CancelBooking() {
 		// window.alert(`${booking.id}`)
 		if (!window.confirm("Are you sure?")) return;
 		try {
-			await delete_remote_booking(booking.id);
+			await cancel_remote_booking(booking.id);
 		} catch (e) {
 			console.error(e);
 			return;
 		}
 		onClose();
+		navigate("/bookings", { replace: true });
 	}
-	const locNameL = print_full(booking.location);
 
 	return (<>
 		<h1>{booking.book.title}</h1>
