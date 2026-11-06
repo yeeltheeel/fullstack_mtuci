@@ -38,6 +38,6 @@
 
 ![Схема](docs/schema.png)
 
-# Серверная часть
+## Серверная часть
 
 ![Апи](docs/screenshots/Screenshot%20(93).png)
