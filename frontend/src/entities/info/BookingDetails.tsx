@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import type { Booking } from '../../data/Types';
-import { print_full } from '../../data/Local';
+import { print_full, format_date } from '../../data/Local';
 import { cancel_remote_booking } from '../../data/Api';
 
 type Props = {
@@ -30,7 +30,7 @@ export default function BookDetails({ booking, onClose }: Props) {
 		<h2>by {booking.book.author}</h2>
 		<h2>Status: {booking.status}</h2>
 		<h4>
-			{booking.time_created} to {booking.time_due}
+			{format_date(booking.time_created)} to {format_date(booking.time_due)}
 			<p>{locNameL}</p>
 		</h4>
 		<h4>{booking.book.genre}</h4>

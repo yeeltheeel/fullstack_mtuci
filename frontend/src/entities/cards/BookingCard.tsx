@@ -3,6 +3,7 @@ import Modal from '../ui/Modal';
 import BookingIcon from '../../shared/icons/diploma.png';
 import DetailsIcon from '../../shared/icons/menu.png';
 import BookingDetails from "../info/BookingDetails";
+import { format_date_short } from '../../data/Local';
 
 type Props = {
     booking: Booking;
@@ -19,7 +20,7 @@ export default function BookingCard({booking}: Props){
             <h2>{booking.book.title}</h2>
             <h4>by {booking.book.author}</h4>
             <p>
-                {booking.time_created} to {booking.time_due}
+                {format_date_short(booking.time_created)} to {format_date_short(booking.time_due)}
             </p>
             <p className="card_status">Status: {booking.status}</p>
         </div>
