@@ -34,10 +34,10 @@
 
 ![Информация о бронировании](docs/screenshots/Screenshot%20(88).png)
 
-## База данных
+### База данных
 
 ![Схема](docs/schema.png)
 
-## Серверная часть
+### Серверная часть
 
 ![Апи](docs/screenshots/Screenshot%20(93).png)
