@@ -38,15 +38,6 @@
 
 ![Схема](docs/schema.png)
 
-<!-- to-do:
-    backend return must match frontend
-    frontend structure
-    edit profile page
-    filtered books page
-    selectable locations for booking (if came from filtered then select it)
-    docker-compose for all
--->
-
 # Серверная часть
 
 ![Апи](docs/screenshots/Screenshot%20(93).png)

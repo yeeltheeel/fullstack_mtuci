@@ -1,12 +1,5 @@
 import type { User, Book, Location, Booking } from "./Types";
-
-import type {
-	UserOut,
-	BookOut,
-	BookFullDto,
-	LocationOut,
-	BookingOut
-} from "./Dto";
+import type { UserOut, BookOut, BookFullDto, LocationOut, BookingOut } from "./Dto";
 
 export const mapUserOut = (u: UserOut): User => ({
 	id: u.user_id,

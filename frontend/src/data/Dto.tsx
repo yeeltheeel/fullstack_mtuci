@@ -40,9 +40,9 @@ export type StockOut = {
 export type BookingOut = {
 	bk_id: number;
 	user: UserOut;
-	book: BookOut; 
+	book: BookOut;
 	location: LocationOut;
-	time_created: string; 
+	time_created: string;
 	time_due: string | null;
 	time_closed: string | null;
 	stat: string;
